@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+	<!-- Google Font -->
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+
+	<!-------->
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+
+		.navMenu {
+			font-family: 'Advent Pro', sans-serif;
+			padding: 8px;
+			text-align: center;
+			margin: 7px auto;
+			width: fit-content;
+		}
+
+		.navMenu a {
+			color: #272727;
+			text-decoration: none;
+			text-transform: uppercase;
+			display: inline-block;
+			padding: 6px;
+		}
+
+		.background {
+			background-color: #d5e8f7;
+		}
+
+		.border {
+			border: 1px solid #cccccc;
+
+		}
+
+		.navMenu a:hover {
+
+			color: #d09c0b;
+		}
+	</style>
+</head>
+
+<body>
+
+	<nav class="navMenu  border background">
+		<a id="home" onclick="navigate(this.id)" href="#"> <i class="fa-brands fa-fort-awesome"></i> Home</a>
+		<a id="outline" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-bars-progress"></i> Outline</a>
+		<a id="assets" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-chess-pawn"></i> Assets</a>
+		<a id="sessions" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-scroll"></i> Sessions</a>
+		<a id="pcs" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-user-ninja"></i> PCs</a>
+		
+
+
+
+	</nav>
+
+
+	<script>
+
+		let direction = "horizontal";
+		if (direction === "vertical") {
+			document.head.insertAdjacentHTML("beforeend", `<style>.navMenu a {display: block; text-align:left; margin:7px} i{width:15px; margin-right:5px} .navMenu{margin:3px}</style>`)
+		}
+
+
+		function navigate(id) {
+
+			if (id == 'home')
+				window.open("https://www.notion.so/vnavone/Grendleroot-Pixar-Monday-3fcb87a27023469392bb2363e6e07141?pvs=4", '_blank').focus();
+			else if (id == "outline")
+				window.open("https://www.notion.so/vnavone/Campaign-Notes-Outline-f67f201e2a514ac69da34751038d2d44?pvs=4", '_blank').focus();
+			else if (id == "assets")
+				window.open("https://www.notion.so/vnavone/acaf928ffee1448ba45f186adec06632?v=d1b05a60a9854d0f807e8e8609adf35d&pvs=4", '_blank').focus();
+			else if (id == "sessions")
+				window.open("https://www.notion.so/vnavone/cb93c49c458143449308dcc7c473de28?v=c8646f3b50f440aa88369171b872ed3d&pvs=4", 
+			else if (id == "pcs")
+				window.open("https://www.notion.so/vnavone/0d94f65940e0471bbdc0e980ce5544f4?v=6278dc5af7ba489a805e79df89d63266&pvs=4", 
+			
+			
+		}
+	</script>
+
+
+</body>
+
+</html>
