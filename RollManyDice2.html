@@ -3,89 +3,91 @@
 <head>
 <fieldset>
   <legend><b>Mass d20 Roll Table</b></legend>
+<head>
     <title>Mass d20 Roll Table</title>
-	<link rel="stylesheet" type="text/css" href="https://vnavone.github.io/notion_widgets/style.css">
 </head>
 <body>
     <p>Enter the values for:</p>
     <form id="inputForm">
         <label for="ac">AC or DC:</label>
-        <input type="number" id="ac" style="width: 50px;"
-               required><br><br>
-        
+        <input type="number" id="ac" style="width: 50px;" value="10" required><br><br>
+
         <label for="modifier">Attack or Save Modifier:</label>
-        <input type="number" id="modifier" style="width: 50px;" required><br><br>
-        
+        <input type="number" id="modifier" style="width: 50px;" value="3" required><br><br>
+
         <label for="number">Number of d20s to Roll:</label>
-        <input type="number" id="number" style="width: 50px;" required><br><br>
-        
+        <input type="number" id="number" style="width: 50px;" value="10" required><br><br>
+
         <label for="damage">Damage per Hit:</label>
-        <input type="number" id="damage" style="width: 50px;" required><br><br>
-        
+        <input type="number" id="damage" style="width: 50px;" value="5"><br><br>
+
         <button type="button" onclick="calculateDamage()">Generate Table</button>
     </form>
-    
+
     <br>
     <table class="center" border="1">
         <thead>
             <tr>
-                <th> d20 </th>
-                <th> Successes </th>
-                <th> Damage Total </th>
+                <th>d20</th>
+                <th>Successes</th>
+                <th>Damage Total</th>
             </tr>
         </thead>
         <tbody id="resultTable">
             <!-- Result rows will be added here dynamically -->
         </tbody>
     </table>
-    
+
     <script>
         function calculateDamage() {
             const ac = parseInt(document.getElementById("ac").value);
             const modifier = parseInt(document.getElementById("modifier").value);
             const number = parseInt(document.getElementById("number").value);
             const damage = parseInt(document.getElementById("damage").value);
-            
+
             let column = ac - modifier;
             column = Math.min(20, Math.max(2, column)); // Ensure column is between 2 and 20
-            
+
             const tableData = document.getElementById("resultTable");
             tableData.innerHTML = ""; // Clear previous results
-            
+
             const tableValues = [
                 // Define your table values here
                 [1,17,15,14,12,11,10,9,8,7,6,5,4,3,2,1,1,0,0,0],
                 [2,18,16,15,13,12,11,10,9,8,7,6,5,4,3,2,2,1,0,0],
-				[3,18,16,15,14,13,12,11,9,8,7,6,5,4,4,3,2,1,1,0],
-				[4,18,17,16,14,13,12,11,10,9,8,7,6,5,4,3,2,2,1,0],
-				[5,18,17,16,15,14,13,12,10,9,8,7,6,5,4,3,3,2,1,0],
-				[6,19,17,16,15,14,13,12,11,10,9,8,7,5,5,4,3,2,1,0],
-				[7,19,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0],
-				[8,19,18,17,15,15,14,13,11,10,9,8,7,6,5,4,3,2,2,1],
-				[9,19,18,17,16,15,14,13,12,11,10,9,8,6,5,4,4,3,2,1],
-				[10,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1],
-				[11,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1],
-				[12,19,18,17,16,16,15,14,12,11,10,9,8,7,6,5,4,3,2,1],
-				[13,19,18,18,17,16,15,14,13,12,11,10,9,7,6,5,5,3,2,1],
-				[14,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,1],
-				[15,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,1],
-				[16,20,19,18,17,17,16,15,14,13,12,11,10,8,7,6,5,4,3,2],
-				[17,20,19,19,18,17,16,15,14,13,12,11,10,9,8,7,6,4,3,2],
-				[18,20,19,19,18,17,16,15,15,14,13,12,11,9,8,7,6,5,4,2],
-				[19,20,20,19,18,18,17,16,15,14,13,12,11,10,9,8,7,5,4,2],
+                [3,18,16,15,14,13,12,11,9,8,7,6,5,4,4,3,2,1,1,0],
+                [4,18,17,16,14,13,12,11,10,9,8,7,6,5,4,3,2,2,1,0],
+                [5,18,17,16,15,14,13,12,10,9,8,7,6,5,4,3,3,2,1,0],
+                [6,19,17,16,15,14,13,12,11,10,9,8,7,5,5,4,3,2,1,0],
+                [7,19,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0],
+                [8,19,18,17,15,15,14,13,11,10,9,8,7,6,5,4,3,2,2,1],
+                [9,19,18,17,16,15,14,13,12,11,10,9,8,6,5,4,4,3,2,1],
+                [10,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1],
+                [11,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1],
+                [12,19,18,17,16,16,15,14,12,11,10,9,8,7,6,5,4,3,2,1],
+                [13,19,18,18,17,16,15,14,13,12,11,10,9,7,6,5,5,3,2,1],
+                [14,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,1],
+                [15,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,1],
+                [16,20,19,18,17,17,16,15,14,13,12,11,10,8,7,6,5,4,3,2],
+                [17,20,19,19,18,17,16,15,14,13,12,11,10,9,8,7,6,4,3,2],
+                [18,20,19,19,18,17,16,15,15,14,13,12,11,9,8,7,6,5,4,2],
+                [19,20,20,19,18,18,17,16,15,14,13,12,11,10,9,8,7,5,4,2],
                 [20,20,20,20,19,19,18,17,16,15,14,13,12,11,10,9,8,6,5,3]
             ];
-            
+
             for (let i = 0; i < tableValues.length; i++) {
                 const result = Math.round((tableValues[i][column - 1] / 20) * number);
                 const damageTotal = Math.round(result * damage);
-                
+
                 const row = document.createElement("tr");
                 row.innerHTML = `<td>${tableValues[i][0]}</td><td>${result}</td><td>${damageTotal}</td>`;
-                
+
                 tableData.appendChild(row);
             }
         }
+
+        // Calculate and display results on page load
+        calculateDamage();
     </script>
 </body>
 </fieldset>
