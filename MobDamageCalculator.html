@@ -1,0 +1,37 @@
+<fieldset>
+<legend>D&amp;D 5e Mob Damage Calculator</legend>
+<p>by <a href="https://slyflourish.com/about_mike_shea.html">Sly Flourish</a> </p><p>Use this form to calculate the amount of damage inflicted to a character from a mob consisting of many monsters. See page 250 of the <a href="hhttps://www.dndbeyond.com/sources/dmg/running-the-game#HandlingMobs">Dungeon Master's Guide</a> for details. You can also use this form to see how many monsters in a mob save against an effect.</p>
+<table id = "noborder">
+<tr><td class="noborder"><label for="ac">Target character armor class (or DC of effect used on the mob):</label></td><td class="noborder"><input id="ac" type="number" /></td></tr>
+<tr><td class="noborder"><label for="amount">Number of attacking creatures (or creatures within DC-based effect):</label></td><td class="noborder">
+<input id="amount" type="number" /></td></tr>
+<tr><td class="noborder"><label for="attack">Attack bonus of attacking creatures (or saving throw bonus of creature in mob) (note: don't add the "+"):</label></td><td class="noborder">
+<input id="attack" type="number" /></td></tr>
+<tr><td class="noborder"><label for="damage">Total damage of each attacking creature:</label></td><td class="noborder">
+<input id="damage" type="number" /></td></tr>
+
+<tr><td class="noborder" id="button_cell" colspan=2><button onclick="output();">Calculate</button</td></tr> 
+
+<tr><td class="noborder" colspan=2><strong><span id="result"></span></strong></td></tr>
+
+</table>
+</fieldset>
+
+<script type="text/javascript" language="javascript" charset="utf-8">
+
+function output(){
+    var ac = parseInt(document.getElementById('ac').value);
+    var amount = parseInt(document.getElementById('amount').value);
+    var attack = parseInt(document.getElementById('attack').value);
+    var damage = parseInt(document.getElementById('damage').value);
+
+    if (ac - attack > 20) { var avac = 20; }
+    else { var avac = ac - attack; }
+    pctMonstersThatHit = (21 - avac) / 20;
+    numMonstersThatHit = Math.floor(pctMonstersThatHit * amount);
+    totalDamage = numMonstersThatHit * damage;
+
+    result = numMonstersThatHit + " monsters of " + amount + " (" + Math.floor(pctMonstersThatHit * 100) + "% of total) hit for a total of " + totalDamage + " damage.</p><p>If calculating for monster saving throws, " + numMonstersThatHit + " monsters of " + amount + " (" + Math.floor(pctMonstersThatHit * 100) + "%) make their saving throw.";
+    document.getElementById('result').innerHTML = result;
+}
+</script>
