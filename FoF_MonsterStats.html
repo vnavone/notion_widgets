@@ -12,6 +12,9 @@
     legend {
       text-align: center;
     }
+        #crTitle {
+      font-size: 1.2em; /* Adjust the font size as desired */
+    }
 
     table {
       border-collapse: collapse;
@@ -104,7 +107,7 @@
     function showStats() {
       const cr = crSelect.value;
       const stats = data[cr];
-      let output = `<div id='crTitle'>${cr}</div>`;
+      let output = `<div id='crTitle'><strong>${cr}</strong></div>`;
       for (const key in stats) {
         output += `<strong>${key}:</strong> ${stats[key]}<br>`;
       }
