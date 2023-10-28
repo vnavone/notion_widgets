@@ -1,88 +1,94 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Forge of Foes 5e Monster Stats</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forge of Foes 5e Monster Stats</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      font-size: 16px;
-    }
-    #container {
-      max-width: 600px;
-      margin: auto;
-    }
-    #statBlock {
-      border: 1px solid #ccc;
-      padding: 25px;
-      margin-top: 15px;
+    fieldset {
       text-align: left;
-      line-height: 1.6;
-      font-size: 18px;
     }
-    #crTitle {
-      font-size: 24px;
-      margin-bottom: 15px;
+
+    legend {
+      text-align: center;
     }
-    #crSelect {
-  font-size: 18px;
-  padding: 10px;
-  width: 60%;
-}
-.license {
-font-size: 12px
-}
-h1 {text-align: center}
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th:nth-child(1), td:nth-child(1),
+    th:nth-child(2), td:nth-child(2) {
+      display: none;
+    }
+
+    th:nth-child(3), th:nth-child(4) {
+      background-color: #f2f2f2;
+    }
+
+    select, input {
+      margin: 10px;
+    }
   </style>
+  <link rel="stylesheet" type="text/css" href="https://vnavone.github.io/notion_widgets/style.css">
 </head>
 <body>
   <div id="container">
-    <h2>5e Monster Stats</h2>
-    <label for="crSelect">Select CR:</label>
-    <select id="crSelect">
-      <!-- CR Options -->
-    </select>
-    <div id="statBlock">
-      <!-- Stat Block -->
-    </div>
+    <fieldset>
+      <legend><b>5e Monster Stats</b> (Forge of Foes)</legend>
+      <label for="crSelect">Select CR:</label>
+      <select id="crSelect">
+        <!-- CR Options -->
+      </select>
+      <div id="statBlock">
+        <!-- Stat Block -->
+      </div>
+    </fieldset>
   </div>
 
   <script>
-const data = {
-  "CR 0": {"AC/DC": 10, "HP": "3 (2&ndash;4)", "Atk/Prof": "+2", "# Atks": 1, "Dam": "2 (1d4)"},
-  "CR 1/8": {"AC/DC": 11, "HP": "9 (7&ndash;11)", "Atk/Prof": "+3", "# Atks": 1, "Dam": "4 (1d6 + 1)"},
-  "CR 1/4": {"AC/DC": 11, "HP": "13 (10&ndash;16)", "Atk/Prof": "+3", "# Atks": 1, "Dam": "5 (1d6 + 2)"},
-  "CR 1/2": {"AC/DC": 12, "HP": "22 (17&ndash;28)", "Atk/Prof": "+4", "# Atks": 2, "Dam": "4 (1d4 + 2)"},
-  "CR 1": {"AC/DC": 12, "HP": "33 (25&ndash;41)", "Atk/Prof": "+5", "# Atks": 2, "Dam": "6 (1d8 + 2)"},
-  "CR 2": {"AC/DC": 13, "HP": "45 (34&ndash;56)", "Atk/Prof": "+5", "# Atks": 2, "Dam": "9 (2d6 + 2)"},
-  "CR 3": {"AC/DC": 13, "HP": "65 (49&ndash;81)", "Atk/Prof": "+5", "# Atks": 2, "Dam": "12 (2d8 + 3)"},
-  "CR 4": {"AC/DC": 14, "HP": "84 (64&ndash;106)", "Atk/Prof": "+6", "# Atks": 2, "Dam": "14 (3d8 + 1)"},
-  "CR 5": {"AC/DC": 15, "HP": "95 (71&ndash;119)", "Atk/Prof": "+7", "# Atks": 3, "Dam": "12 (3d6 + 2)"},
-  "CR 6": {"AC/DC": 15, "HP": "112 (84&ndash;140)", "Atk/Prof": "+7", "# Atks": 3, "Dam": "14 (3d6 + 4)"},
-  "CR 7": {"AC/DC": 15, "HP": "130 (98&ndash;162)", "Atk/Prof": "+7", "# Atks": 3, "Dam": "16 (3d8 + 3)"},
-  "CR 8": {"AC/DC": 15, "HP": "136 (102&ndash;170)", "Atk/Prof": "+7", "# Atks": 3, "Dam": "18 (3d10 + 2)"},
-  "CR 9": {"AC/DC": 16, "HP": "145 (109&ndash;181)", "Atk/Prof": "+8", "# Atks": 3, "Dam": "22 (3d12 + 3)"},
-  "CR 10": {"AC/DC": 17, "HP": "155 (116&ndash;194)", "Atk/Prof": "+9", "# Atks": 4, "Dam": "16 (3d8 + 3)"},
-  "CR 11": {"AC/DC": 17, "HP": "165 (124&ndash;206)", "Atk/Prof": "+9", "# Atks": 4, "Dam": "18 (3d10 + 2)"},
-  "CR 12": {"AC/DC": 17, "HP": "175 (131&ndash;219)", "Atk/Prof": "+9", "# Atks": 4, "Dam": "19 (3d10 + 3)"},
-  "CR 13": {"AC/DC": 18, "HP": "184 (138&ndash;230)", "Atk/Prof": "+10", "# Atks": 4, "Dam": "21 (4d8 + 3)"},
-  "CR 14": {"AC/DC": 19, "HP": "196 (147&ndash;245)", "Atk/Prof": "+11", "# Atks": 4, "Dam": "22 (4d10)"},
-  "CR 15": {"AC/DC": 19, "HP": "210 (158&ndash;263)", "Atk/Prof": "+11", "# Atks": 5, "Dam": "19 (3d10 + 3)"},
-  "CR 16": {"AC/DC": 19, "HP": "220 (165&ndash;275)", "Atk/Prof": "+11", "# Atks": 5, "Dam": "21 (4d8 + 3)"},
-  "CR 17": {"AC/DC": 20, "HP": "230 (173&ndash;288)", "Atk/Prof": "+12", "# Atks": 5, "Dam": "22 (4d10)"},
-  "CR 18": {"AC/DC": 21, "HP": "240 (180&ndash;300)", "Atk/Prof": "+13", "# Atks": 5, "Dam": "24 (4d10 + 3)"},
-  "CR 19": {"AC/DC": 21, "HP": "255 (192&ndash;319)", "Atk/Prof": "+13", "# Atks": 5, "Dam": "25 (4d12)"},
-  "CR 20": {"AC/DC": 21, "HP": "266 (200&ndash;333)", "Atk/Prof": "+13", "# Atks": 5, "Dam": "26 (4d12 + 1)"},
-  "CR 21": {"AC/DC": 22, "HP": "279 (209&ndash;349)", "Atk/Prof": "+14", "# Atks": 6, "Dam": "25 (4d10 + 5)"},
-  "CR 22": {"AC/DC": 23, "HP": "290 (218&ndash;363)", "Atk/Prof": "+15", "# Atks": 6, "Dam": "26 (4d12 + 2)"},
-  "CR 23": {"AC/DC": 23, "HP": "302 (227&ndash;378)", "Atk/Prof": "+15", "# Atks": 6, "Dam": "28 (5d10)"},
-  "CR 24": {"AC/DC": 23, "HP": "314 (236&ndash;393)", "Atk/Prof": "+15", "# Atks": 6, "Dam": "29 (5d10 + 2)"},
-  "CR 25": {"AC/DC": 24, "HP": "327 (245&ndash;409)", "Atk/Prof": "+16", "# Atks": 6, "Dam": "30 (5d12)"},
-  "CR 26": {"AC/DC": 25, "HP": "339 (254&ndash;424)", "Atk/Prof": "+17", "# Atks": 6, "Dam": "32 (6d10)"},
-  "CR 27": {"AC/DC": 25, "HP": "353 (265&ndash;442)", "Atk/Prof": "+17", "# Atks": 6, "Dam": "33 (5d12 + 3)"},
-  "CR 28": {"AC/DC": 25, "HP": "367 (275&ndash;459)", "Atk/Prof": "+17", "# Atks": 6, "Dam": "34 (6d10 + 2)"},
-  "CR 29": {"AC/DC": 26, "HP": "382 (287&ndash;478)", "Atk/Prof": "+18", "# Atks": 6, "Dam": "35 (6d10 + 3)"},
-  "CR 30": {"AC/DC": 27, "HP": "666 (500&ndash;833)", "Atk/Prof": "+19", "# Atks": 5, "Dam": "62 (6d10 + 29)"}
+    const data = {
+  "CR 0": {"AC/DC": 10, "HP": "3 (2&ndash;4)", "Attack/Prof Bonus": "+2", "# of Attacks": 1, "Damage/Attack": "2 (1d4)"},
+  "CR 1/8": {"AC/DC": 11, "HP": "9 (7&ndash;11)", "Attack/Prof Bonus": "+3", "# of Attacks": 1, "Damage/Attack": "4 (1d6 + 1)"},
+  "CR 1/4": {"AC/DC": 11, "HP": "13 (10&ndash;16)", "Attack/Prof Bonus": "+3", "# of Attacks": 1, "Damage/Attack": "5 (1d6 + 2)"},
+  "CR 1/2": {"AC/DC": 12, "HP": "22 (17&ndash;28)", "Attack/Prof Bonus": "+4", "# of Attacks": 2, "Damage/Attack": "4 (1d4 + 2)"},
+  "CR 1": {"AC/DC": 12, "HP": "33 (25&ndash;41)", "Attack/Prof Bonus": "+5", "# of Attacks": 2, "Damage/Attack": "6 (1d8 + 2)"},
+  "CR 2": {"AC/DC": 13, "HP": "45 (34&ndash;56)", "Attack/Prof Bonus": "+5", "# of Attacks": 2, "Damage/Attack": "9 (2d6 + 2)"},
+  "CR 3": {"AC/DC": 13, "HP": "65 (49&ndash;81)", "Attack/Prof Bonus": "+5", "# of Attacks": 2, "Damage/Attack": "12 (2d8 + 3)"},
+  "CR 4": {"AC/DC": 14, "HP": "84 (64&ndash;106)", "Attack/Prof Bonus": "+6", "# of Attacks": 2, "Damage/Attack": "14 (3d8 + 1)"},
+  "CR 5": {"AC/DC": 15, "HP": "95 (71&ndash;119)", "Attack/Prof Bonus": "+7", "# of Attacks": 3, "Damage/Attack": "12 (3d6 + 2)"},
+  "CR 6": {"AC/DC": 15, "HP": "112 (84&ndash;140)", "Attack/Prof Bonus": "+7", "# of Attacks": 3, "Damage/Attack": "14 (3d6 + 4)"},
+  "CR 7": {"AC/DC": 15, "HP": "130 (98&ndash;162)", "Attack/Prof Bonus": "+7", "# of Attacks": 3, "Damage/Attack": "16 (3d8 + 3)"},
+  "CR 8": {"AC/DC": 15, "HP": "136 (102&ndash;170)", "Attack/Prof Bonus": "+7", "# of Attacks": 3, "Damage/Attack": "18 (3d10 + 2)"},
+  "CR 9": {"AC/DC": 16, "HP": "145 (109&ndash;181)", "Attack/Prof Bonus": "+8", "# of Attacks": 3, "Damage/Attack": "22 (3d12 + 3)"},
+  "CR 10": {"AC/DC": 17, "HP": "155 (116&ndash;194)", "Attack/Prof Bonus": "+9", "# of Attacks": 4, "Damage/Attack": "16 (3d8 + 3)"},
+  "CR 11": {"AC/DC": 17, "HP": "165 (124&ndash;206)", "Attack/Prof Bonus": "+9", "# of Attacks": 4, "Damage/Attack": "18 (3d10 + 2)"},
+  "CR 12": {"AC/DC": 17, "HP": "175 (131&ndash;219)", "Attack/Prof Bonus": "+9", "# of Attacks": 4, "Damage/Attack": "19 (3d10 + 3)"},
+  "CR 13": {"AC/DC": 18, "HP": "184 (138&ndash;230)", "Attack/Prof Bonus": "+10", "# of Attacks": 4, "Damage/Attack": "21 (4d8 + 3)"},
+  "CR 14": {"AC/DC": 19, "HP": "196 (147&ndash;245)", "Attack/Prof Bonus": "+11", "# of Attacks": 4, "Damage/Attack": "22 (4d10)"},
+  "CR 15": {"AC/DC": 19, "HP": "210 (158&ndash;263)", "Attack/Prof Bonus": "+11", "# of Attacks": 5, "Damage/Attack": "19 (3d10 + 3)"},
+  "CR 16": {"AC/DC": 19, "HP": "220 (165&ndash;275)", "Attack/Prof Bonus": "+11", "# of Attacks": 5, "Damage/Attack": "21 (4d8 + 3)"},
+  "CR 17": {"AC/DC": 20, "HP": "230 (173&ndash;288)", "Attack/Prof Bonus": "+12", "# of Attacks": 5, "Damage/Attack": "22 (4d10)"},
+  "CR 18": {"AC/DC": 21, "HP": "240 (180&ndash;300)", "Attack/Prof Bonus": "+13", "# of Attacks": 5, "Damage/Attack": "24 (4d10 + 3)"},
+  "CR 19": {"AC/DC": 21, "HP": "255 (192&ndash;319)", "Attack/Prof Bonus": "+13", "# of Attacks": 5, "Damage/Attack": "25 (4d12)"},
+  "CR 20": {"AC/DC": 21, "HP": "266 (200&ndash;333)", "Attack/Prof Bonus": "+13", "# of Attacks": 5, "Damage/Attack": "26 (4d12 + 1)"},
+  "CR 21": {"AC/DC": 22, "HP": "279 (209&ndash;349)", "Attack/Prof Bonus": "+14", "# of Attacks": 6, "Damage/Attack": "25 (4d10 + 5)"},
+  "CR 22": {"AC/DC": 23, "HP": "290 (218&ndash;363)", "Attack/Prof Bonus": "+15", "# of Attacks": 6, "Damage/Attack": "26 (4d12 + 2)"},
+  "CR 23": {"AC/DC": 23, "HP": "302 (227&ndash;378)", "Attack/Prof Bonus": "+15", "# of Attacks": 6, "Damage/Attack": "28 (5d10)"},
+  "CR 24": {"AC/DC": 23, "HP": "314 (236&ndash;393)", "Attack/Prof Bonus": "+15", "# of Attacks": 6, "Damage/Attack": "29 (5d10 + 2)"},
+  "CR 25": {"AC/DC": 24, "HP": "327 (245&ndash;409)", "Attack/Prof Bonus": "+16", "# of Attacks": 6, "Damage/Attack": "30 (5d12)"},
+  "CR 26": {"AC/DC": 25, "HP": "339 (254&ndash;424)", "Attack/Prof Bonus": "+17", "# of Attacks": 6, "Damage/Attack": "32 (6d10)"},
+  "CR 27": {"AC/DC": 25, "HP": "353 (265&ndash;442)", "Attack/Prof Bonus": "+17", "# of Attacks": 6, "Damage/Attack": "33 (5d12 + 3)"},
+  "CR 28": {"AC/DC": 25, "HP": "367 (275&ndash;459)", "Attack/Prof Bonus": "+17", "# of Attacks": 6, "Damage/Attack": "34 (6d10 + 2)"},
+  "CR 29": {"AC/DC": 26, "HP": "382 (287&ndash;478)", "Attack/Prof Bonus": "+18", "# of Attacks": 6, "Damage/Attack": "35 (6d10 + 3)"},
+  "CR 30": {"AC/DC": 27, "HP": "666 (500&ndash;833)", "Attack/Prof Bonus": "+19", "# of Attacks": 5, "Damage/Attack": "62 (6d10 + 29)"}
     };
 
     // Populate CR options
@@ -110,7 +116,5 @@ const data = {
     // Show initial stats
     showStats();
   </script>
-  
-  
 </body>
 </html>
