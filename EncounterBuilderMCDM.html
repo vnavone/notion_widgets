@@ -1,1 +1,248 @@
+    <link rel="stylesheet" type="text/css" href="https://vnavone.github.io/notion_widgets/style.css"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <fieldset>
+  <legend><b>Encounter Builder</b> (Flee, Mortals!)</legend>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encounter Builder</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        select, input {
+            margin: 10px;
+        }
+    </style>
+      <link rel="stylesheet" type="text/css" href="https://vnavone.github.io/notion_widgets/style.css">
+    <script>
+        function calculateResults() {
+            // Get user inputs
+            var apl = parseInt(document.getElementById("apl").value);
+            var numPCs = parseInt(document.getElementById("numPCs").value);
+
+            // Find the row in the table that matches the selected APL value
+            var table = document.getElementById("data-table");
+            var rows = table.getElementsByTagName("tr");
+            var resultRow = null;
+
+            for (var i = 1; i < rows.length; i++) {
+                var rowData = rows[i].getElementsByTagName("td");
+                if (rowData.length > 0 && parseInt(rowData[0].innerText) === apl) {
+                    resultRow = rowData;
+                    break;
+                }
+            }
+
+            if (resultRow) {
+                // Calculate and display the results
+                var easy = parseFloat(resultRow[1].innerText) * numPCs;
+                var standard = parseFloat(resultRow[2].innerText) * numPCs;
+                var hard = parseFloat(resultRow[3].innerText) * numPCs;
+                var crCap = parseFloat(resultRow[4].innerText);
+                
+                document.getElementById("easy-result").textContent = easy;
+                document.getElementById("standard-result").textContent = standard;
+                document.getElementById("hard-result").textContent = hard;
+                document.getElementById("cr-cap-result").textContent = crCap;
+            }
+        }
+              window.onload = calculateResults;
+    </script>
+</head>
+<body>
+  <label for="apl">Enter APL:</label>
+    <input type="number" id="apl" value="3" style="width: 50px;" oninput="calculateResults()">
+
+    <label for="numPCs">Select Number of PCs:</label>
+    <select id="numPCs" onchange="calculateResults()">
+        <option value="4">4</option>
+        <option value="5" selected>5</option>
+        <option value="6">6</option>
+      <option value="7">7</option>
+    </select>
+
+    <table id="data-table" style="display: none;">
+         <tr>
+            <th>APL</th>
+            <th>Easy</th>
+            <th>Standard</th>
+            <th>Hard</th>
+            <th>CR Cap</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>0.125</td>
+            <td>0.125</td>
+            <td>0.25</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>0.125</td>
+            <td>0.25</td>
+            <td>0.5</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>0.25</td>
+            <td>0.5</td>
+            <td>0.75</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>0.5</td>
+            <td>0.75</td>
+            <td>1</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>1</td>
+            <td>1.5</td>
+            <td>2.5</td>
+            <td>8</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>1.5</td>
+            <td>2</td>
+            <td>3</td>
+            <td>9</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>2</td>
+            <td>2.5</td>
+            <td>3.5</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>2.5</td>
+            <td>3</td>
+            <td>4</td>
+            <td>12</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>3</td>
+            <td>3.5</td>
+            <td>4.5</td>
+            <td>13</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>3.5</td>
+            <td>4</td>
+            <td>5</td>
+            <td>15</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>4</td>
+            <td>4.5</td>
+            <td>5.5</td>
+            <td>16</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>4.5</td>
+            <td>5</td>
+            <td>6</td>
+            <td>17</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>5</td>
+            <td>5.5</td>
+            <td>6.5</td>
+            <td>19</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>5.5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>20</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>6</td>
+            <td>6.5</td>
+            <td>7.5</td>
+            <td>22</td>
+        </tr>
+        <tr>
+            <td>16</td>
+            <td>6.5</td>
+            <td>7</td>
+            <td>8</td>
+            <td>24</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td>7</td>
+            <td>7.5</td>
+            <td>8.5</td>
+            <td>25</td>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td>7.5</td>
+            <td>8</td>
+            <td>9</td>
+            <td>26</td>
+        </tr>
+        <tr>
+            <td>19</td>
+            <td>8</td>
+            <td>8.5</td>
+            <td>9.5</td>
+            <td>28</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td>8.5</td>
+            <td>9</td>
+            <td>10</td>
+            <td>30</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+          <br> 
+          <b>Encounter CR Budget </b>
+   <br>      
+          <br> 
+            <th>Easy</th>
+            <th>Standard</th>
+            <th>Hard</th>
+            <th>CR Cap</th>
+        </tr>
+        <tr>
+            
+            <td id="easy-result">0</td>
+            <td id="standard-result">0</td>
+            <td id="hard-result">0</td>
+            <td id="cr-cap-result">0</td>
+        </tr>
+    </table>
+</body>
+   </fieldset>
+</html>
 
