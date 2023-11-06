@@ -13,11 +13,11 @@
         }
 
         th, td {
-            border: 1px solid #ccc;n: left;
-           width: 25%; /* Set an equal width for each column */
-        }
+            border: 1px solid #dddddd;
+            text-align: left;
             padding: 8px;
-            text-alig
+            width: 25%; /* Set an equal width for each column */
+        }
 
         th {
             background-color: #f2f2f2;
@@ -27,7 +27,6 @@
             margin: 10px;
         }
     </style>
-      <link rel="stylesheet" type="text/css" href="https://vnavone.github.io/notion_widgets/style.css">
     <script>
         function calculateResults() {
             // Get user inputs
@@ -49,10 +48,10 @@
 
             if (resultRow) {
                 // Calculate and display the results
-                var easy = parseFloat(resultRow[1].innerText) * numPCs;
-                var standard = parseFloat(resultRow[2].innerText) * numPCs;
-                var hard = parseFloat(resultRow[3].innerText) * numPCs;
-                var crCap = parseFloat(resultRow[4].innerText);
+                var easy = formatFraction(parseFloat(resultRow[1].innerText) * numPCs);
+                var standard = formatFraction(parseFloat(resultRow[2].innerText) * numPCs);
+                var hard = formatFraction(parseFloat(resultRow[3].innerText) * numPCs);
+                var crCap = formatFraction(parseFloat(resultRow[4].innerText));
                 
                 document.getElementById("easy-result").textContent = easy;
                 document.getElementById("standard-result").textContent = standard;
@@ -60,7 +59,26 @@
                 document.getElementById("cr-cap-result").textContent = crCap;
             }
         }
-              window.onload = calculateResults;
+
+        // Calculate the default values on page load
+        window.onload = calculateResults;
+
+        function formatFraction(decimal) {
+            var wholePart = Math.floor(decimal);
+            var fractionalPart = decimal - wholePart;
+
+            if (fractionalPart === 0) {
+                return wholePart;
+            } else if (fractionalPart === 0.25) {
+                return wholePart + " ¼";
+            } else if (fractionalPart === 0.5) {
+                return wholePart + " ½";
+            } else if (fractionalPart === 0.75) {
+                return wholePart + " ¾";
+            } else {
+                return decimal;
+            }
+        }
     </script>
 </head>
 <body>
