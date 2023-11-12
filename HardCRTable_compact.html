@@ -446,6 +446,24 @@
                 }
             }
         }
+                document.addEventListener("DOMContentLoaded", function () {
+              formatCR();
+          });
+
+          function formatCR() {
+              var table = document.getElementById("data");
+              var rows = table.getElementsByTagName("tr");
+
+              for (var i = 0; i < rows.length; i++) {
+                  var cells = rows[i].getElementsByTagName("td");
+
+                  for (var j = 0; j < cells.length; j++) {
+                      var cellText = cells[j].innerHTML;
+                      var formattedText = cellText.replace(/CR (\d+(\.\d+)?|½)/g, '<b><i>CR $1</i></b>');
+                      cells[j].innerHTML = formattedText;
+                  }
+              }
+          }
     </script>
 </body>
   </fieldset>
