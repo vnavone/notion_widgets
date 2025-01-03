@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=.8, maximum-scale=.8, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Dice Roller</title>
   <style>
   body {
@@ -13,23 +13,25 @@
     justify-content: center;
     touch-action: manipulation;
     margin: 0;
+    transform: scale(0.5); /* Apply scaling */
+    transform-origin: top left; /* Keep scaling relative to top left */
   }
 
   .input-form {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     width: 100%;
-    max-width: 300px;
+    max-width: 150px; /* Adjust width */
   }
 
   .input-form label,
   .input-form input {
     flex: 1;
-    margin: 5px;
-    padding: 10px;
-    font-size: 1.2em;
+    margin: 2.5px;
+    padding: 5px;
+    font-size: 0.6em; /* Halve font size */
     width: 100%;
   }
 
@@ -44,28 +46,28 @@
   }
 
   .dice {
-    margin: 10px;
+    margin: 5px;
     padding: 10px;
-    font-size: 1.5em;
+    font-size: 0.75em; /* Halve font size */
     cursor: pointer;
   }
 
   .history {
-    width: 90%;
-    max-width: 300px;
-    margin: 20px 0;
-    padding: 10px;
+    width: 45%;
+    max-width: 200px; /* Halve max width */
+    margin: 10px 0;
+    padding: 5px;
     border: 1px solid #000;
     background-color: #fff;
-    max-height: 300px;
+    max-height: 150px; /* Halve max height */
     overflow-y: auto;
-    font-size: 1.2em;
+    font-size: 0.75em; /* Halve font size */
   }
 
   .clear-history {
-    margin-top: 10px;
-    font-size: 1.0em;
-    padding: 10px;
+    margin-top: 5px;
+    font-size: 0.6em; /* Halve font size */
+    padding: 5px;
     font-weight: normal;
     width: 100%;
   }
@@ -73,31 +75,31 @@
   p {
     text-align: center;
     width: 95%;
-    max-width: 800px;
-    font-size: 1.0em;
+    max-width: 400px; /* Halve max width */
+    font-size: 0.6em; /* Halve font size */
   }
 
   .custom-roll {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 
   .custom-roll input,
   .custom-roll button {
-    margin: 5px;
-    padding: 10px;
-    font-size: 1.0em;
+    margin: 2.5px;
+    padding: 5px;
+    font-size: 0.6em; /* Halve font size */
     width: 100%;
   }
+
   div.c1 {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
   </style>
-  <link rel="stylesheet" type="text/css" href="https://vnavone.github.io/notion_widgets/style.css">
 </head>
 <body>
   <h1>Dice Roller</h1>
