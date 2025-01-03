@@ -154,15 +154,15 @@
                     total += roll;
                 }
                 total += modifier;
-                let rollStr = ${rolls}d${sides};
+                let rollStr = `${rolls}d${sides}`;
                 if (rolls > 1) {
-                    rollStr +=  (${rollsArray.join(', ')});
+                    rollStr += ` (${rollsArray.join(', ')})`;
                 }
                 if (modifier !== 0) {
-                    rollStr +=  + ${modifier};
+                    rollStr += ` + ${modifier}`;
                 }
-                rollStr +=  = ${total};
-                rollStr += <br>;
+                rollStr += ` = ${total}`;
+                rollStr += `<br>`;
                 history.innerHTML = rollStr + history.innerHTML;
                 history.scrollTop = 0;
             });
@@ -184,18 +184,18 @@
                 total += roll;
             }
             total += modifier;
-            let rollStr = ${rolls}d${sides};
+            let rollStr = `${rolls}d${sides}`;
             if (rolls > 1) {
-                rollStr +=  (${rollsArray.join(', ')});
+                rollStr += ` (${rollsArray.join(', ')})`;
             }
             if (modifier !== 0) {
-                rollStr +=  + ${modifier};
+                rollStr += ` + ${modifier}`;
             }
-            rollStr +=  = ${total};
+            rollStr += ` = ${total}`;
             if (rolls > 1) {
-                rollStr +=  (${total - modifier});
+                rollStr += ` (${total - modifier})`;
             }
-            rollStr += <br>;
+            rollStr += `<br>`;
             history.innerHTML = rollStr + history.innerHTML;
             history.scrollTop = 0;
         });
