@@ -21,17 +21,17 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     width: 100%;
-    max-width: 150px; /* Adjust width */
+    max-width: 300px;
   }
 
   .input-form label,
   .input-form input {
     flex: 1;
-    margin: 2.5px;
-    padding: 5px;
-    font-size: 0.6em; /* Halve font size */
+    margin: 5px;
+    padding: 10px;
+    font-size: 1.2em;
     width: 100%;
   }
 
@@ -46,28 +46,28 @@
   }
 
   .dice {
-    margin: 5px;
-    padding: 10px;
-    font-size: 0.75em; /* Halve font size */
+    margin: 10px;
+    padding: 20px;
+    font-size: 1.5em;
     cursor: pointer;
   }
 
   .history {
-    width: 45%;
-    max-width: 200px; /* Halve max width */
-    margin: 10px 0;
-    padding: 5px;
+    width: 90%;
+    max-width: 400px;
+    margin: 20px 0;
+    padding: 10px;
     border: 1px solid #000;
     background-color: #fff;
-    max-height: 150px; /* Halve max height */
+    max-height: 300px;
     overflow-y: auto;
-    font-size: 0.75em; /* Halve font size */
+    font-size: 1.5em;
   }
 
   .clear-history {
-    margin-top: 5px;
-    font-size: 0.6em; /* Halve font size */
-    padding: 5px;
+    margin-top: 10px;
+    font-size: 1.2em;
+    padding: 10px;
     font-weight: normal;
     width: 100%;
   }
@@ -75,25 +75,24 @@
   p {
     text-align: center;
     width: 95%;
-    max-width: 400px; /* Halve max width */
-    font-size: 0.6em; /* Halve font size */
+    max-width: 800px;
+    font-size: 1.2em;
   }
 
   .custom-roll {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-top: 5px;
+    margin-top: 10px;
   }
 
   .custom-roll input,
   .custom-roll button {
-    margin: 2.5px;
-    padding: 5px;
-    font-size: 0.6em; /* Halve font size */
+    margin: 5px;
+    padding: 10px;
+    font-size: 1.2em;
     width: 100%;
   }
-
   div.c1 {
     display: flex;
     flex-direction: row;
@@ -155,15 +154,15 @@
                     total += roll;
                 }
                 total += modifier;
-                let rollStr = `${rolls}d${sides}`;
+                let rollStr = ${rolls}d${sides};
                 if (rolls > 1) {
-                    rollStr += ` (${rollsArray.join(', ')})`;
+                    rollStr +=  (${rollsArray.join(', ')});
                 }
                 if (modifier !== 0) {
-                    rollStr += ` + ${modifier}`;
+                    rollStr +=  + ${modifier};
                 }
-                rollStr += ` = ${total}`;
-                rollStr += `<br>`;
+                rollStr +=  = ${total};
+                rollStr += <br>;
                 history.innerHTML = rollStr + history.innerHTML;
                 history.scrollTop = 0;
             });
@@ -185,18 +184,18 @@
                 total += roll;
             }
             total += modifier;
-            let rollStr = `${rolls}d${sides}`;
+            let rollStr = ${rolls}d${sides};
             if (rolls > 1) {
-                rollStr += ` (${rollsArray.join(', ')})`;
+                rollStr +=  (${rollsArray.join(', ')});
             }
             if (modifier !== 0) {
-                rollStr += ` + ${modifier}`;
+                rollStr +=  + ${modifier};
             }
-            rollStr += ` = ${total}`;
+            rollStr +=  = ${total};
             if (rolls > 1) {
-                rollStr += ` (${total - modifier})`;
+                rollStr +=  (${total - modifier});
             }
-            rollStr += `<br>`;
+            rollStr += <br>;
             history.innerHTML = rollStr + history.innerHTML;
             history.scrollTop = 0;
         });
