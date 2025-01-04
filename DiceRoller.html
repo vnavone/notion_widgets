@@ -13,28 +13,24 @@
     justify-content: center;
     touch-action: manipulation;
     margin: 0;
-    transform: scale(0.67); /* Apply scaling */
-    transform-origin: top left; 
-    width: 150%; /* Double the width to counteract the scale */
-    height: 150%; /* Double the height to counteract the scale */
-    overflow: hidden; /* Prevent extra space from showing */
+
   }
 
   .input-form {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     width: 100%;
-    max-width: 300px;
+    max-width: 150px; /* Adjust width */
   }
 
   .input-form label,
   .input-form input {
     flex: 1;
-    margin: 5px;
-    padding: 10px;
-    font-size: 1.2em;
+    margin: 2.5px;
+    padding: 5px;
+    font-size: 0.6em; /* Halve font size */
     width: 100%;
   }
 
@@ -49,28 +45,28 @@
   }
 
   .dice {
-    margin: 10px;
-    padding: 20px;
-    font-size: 1.5em;
+    margin: 5px;
+    padding: 10px;
+    font-size: 0.75em; /* Halve font size */
     cursor: pointer;
   }
 
   .history {
-    width: 90%;
-    max-width: 400px;
-    margin: 20px 0;
-    padding: 10px;
+    width: 45%;
+    max-width: 200px; /* Halve max width */
+    margin: 10px 0;
+    padding: 5px;
     border: 1px solid #000;
     background-color: #fff;
-    max-height: 300px;
+    max-height: 150px; /* Halve max height */
     overflow-y: auto;
-    font-size: 1.5em;
+    font-size: 0.75em; /* Halve font size */
   }
 
   .clear-history {
-    margin-top: 10px;
-    font-size: 1.2em;
-    padding: 10px;
+    margin-top: 5px;
+    font-size: 0.6em; /* Halve font size */
+    padding: 5px;
     font-weight: normal;
     width: 100%;
   }
@@ -78,24 +74,25 @@
   p {
     text-align: center;
     width: 95%;
-    max-width: 800px;
-    font-size: 1.2em;
+    max-width: 400px; /* Halve max width */
+    font-size: 0.6em; /* Halve font size */
   }
 
   .custom-roll {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 
   .custom-roll input,
   .custom-roll button {
-    margin: 5px;
-    padding: 10px;
-    font-size: 1.2em;
+    margin: 2.5px;
+    padding: 5px;
+    font-size: 0.6em; /* Halve font size */
     width: 100%;
   }
+
   div.c1 {
     display: flex;
     flex-direction: row;
@@ -204,5 +201,5 @@
         });
     });
   </script>
-  </body>
+ </body>
 </html>
