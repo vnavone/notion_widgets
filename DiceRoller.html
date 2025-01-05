@@ -112,6 +112,18 @@
       <input type="number" id="modifier" name="modifier" value="0">
     </div>
   </form>
+  <div class="roll-modes">
+  <label>
+    <input type="checkbox" name="roll-mode" id="mode-normal" value="normal" /> Normal
+  </label>
+  <label>
+    <input type="checkbox" name="roll-mode" id="mode-advantage" value="advantage" /> Advantage
+  </label>
+  <label>
+    <input type="checkbox" name="roll-mode" id="mode-disadvantage" value="disadvantage" /> Disadvantage
+  </label>
+</div>
+
   <div class="dice-roller">
     <button class="dice" data-sides="4">D4</button>
     <button class="dice" data-sides="6">D6</button>
@@ -129,77 +141,107 @@
     <button type="button" class="clear-history">Clear History</button>
   </form>
   <div class="history" id="history"></div>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const diceButtons = document.querySelectorAll('.dice');
-        const history = document.getElementById('history');
-        const diceForm = document.querySelector('.input-form');
-        const clearHistoryBtn = document.querySelector('.clear-history');
-        const rollCustomDiceBtn = document.querySelector('.roll-custom-dice');
-        const customSidesInput = document.getElementById('custom-sides');
-        const diceSidesInput = document.querySelector('[name="dice"]');
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const diceButtons = document.querySelectorAll('.dice');
+    const history = document.getElementById('history');
+    const diceForm = document.querySelector('.input-form');
+    const diceInput = diceForm.elements.dice;
+    const clearHistoryBtn = document.querySelector('.clear-history');
+    const rollCustomDiceBtn = document.querySelector('.roll-custom-dice');
+    const customSidesInput = document.getElementById('custom-sides');
+    const modeCheckboxes = document.querySelectorAll('[name="roll-mode"]'); // Roll mode checkboxes
 
-        diceButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const sides = parseInt(button.dataset.sides);
-                let rolls = diceForm.elements.dice.value;
-                let modifier = diceForm.elements.modifier.value;
-                rolls = parseInt(rolls) || 1;
-                modifier = parseInt(modifier) || 0;
-                let rollsArray = [];
-                let total = 0;
-                for (let i = 0; i < rolls; i++) {
-                    let roll = Math.floor(Math.random() * sides) + 1;
-                    rollsArray.push(roll);
-                    total += roll;
-                }
-                total += modifier;
-                let rollStr = `${rolls}d${sides}`;
-                if (rolls > 1) {
-                    rollStr += ` (${rollsArray.join(', ')})`;
-                }
-                if (modifier !== 0) {
-                    rollStr += ` + ${modifier}`;
-                }
-                rollStr += ` = ${total}`;
-                rollStr += `<br>`;
-                history.innerHTML = rollStr + history.innerHTML;
-                history.scrollTop = 0;
-            });
-        });
-
-        clearHistoryBtn.addEventListener('click', () => {
-            history.innerHTML = '';
-        });
-
-        rollCustomDiceBtn.addEventListener('click', () => {
-            let rolls = parseInt(diceForm.elements.dice.value) || 1;
-            let modifier = parseInt(diceForm.elements.modifier.value) || 0;
-            let sides = parseInt(customSidesInput.value) || 10;
-            let rollsArray = [];
-            let total = 0;
-            for (let i = 0; i < rolls; i++) {
-                let roll = Math.floor(Math.random() * sides) + 1;
-                rollsArray.push(roll);
-                total += roll;
-            }
-            total += modifier;
-            let rollStr = `${rolls}d${sides}`;
-            if (rolls > 1) {
-                rollStr += ` (${rollsArray.join(', ')})`;
-            }
-            if (modifier !== 0) {
-                rollStr += ` + ${modifier}`;
-            }
-            rollStr += ` = ${total}`;
-            if (rolls > 1) {
-                rollStr += ` (${total - modifier})`;
-            }
-            rollStr += `<br>`;
-            history.innerHTML = rollStr + history.innerHTML;
-            history.scrollTop = 0;
-        });
+    // Ensure only one mode checkbox is checked
+    modeCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+          modeCheckboxes.forEach(cb => {
+            if (cb !== checkbox) cb.checked = false;
+          });
+        }
+      });
     });
-  </script>
- </body>
+
+    // Default to "normal" mode
+    document.getElementById('mode-normal').checked = true;
+
+    // Ensure the number of dice cannot be less than 1
+    diceInput.addEventListener('input', () => {
+      if (diceInput.value < 1) {
+        diceInput.value = 1;
+      }
+    });
+
+    const formatRoll = (roll, sides) => {
+      return roll === sides ? `<b>${roll}</b>` : roll;
+    };
+
+    const formatRolls = (rollsArray, sides) => {
+      return rollsArray.map(roll => formatRoll(roll, sides)).join(', ');
+    };
+
+    const rollDice = (sides, rolls, modifier, mode) => {
+      let rollsArray = [];
+      for (let i = 0; i < rolls; i++) {
+        let roll = Math.floor(Math.random() * sides) + 1;
+        rollsArray.push(roll);
+      }
+
+      let rollStr = `${rolls}d${sides}`;
+      if (rolls > 1) {
+        rollStr += ` (${formatRolls(rollsArray, sides)})`;
+      } else {
+        rollStr += ` (${formatRoll(rollsArray[0], sides)})`;
+      }
+
+      if (mode === "advantage") {
+        const highest = Math.max(...rollsArray);
+        rollStr += ` = Highest: ${formatRoll(highest, sides)}`;
+      } else if (mode === "disadvantage") {
+        const lowest = Math.min(...rollsArray);
+        rollStr += ` = Lowest: ${formatRoll(lowest, sides)}`;
+      } else {
+        const total = rollsArray.reduce((sum, roll) => sum + roll, 0) + modifier;
+        if (modifier !== 0) {
+          rollStr += ` + ${modifier}`;
+        }
+        rollStr += ` = ${total}`;
+      }
+
+      return rollStr;
+    };
+
+    diceButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const sides = parseInt(button.dataset.sides);
+        const rolls = parseInt(diceInput.value) || 1;
+        const modifier = parseInt(diceForm.elements.modifier.value) || 0;
+
+        const selectedMode = Array.from(modeCheckboxes).find(cb => cb.checked).value;
+
+        const rollStr = rollDice(sides, rolls, modifier, selectedMode);
+        history.innerHTML = `${rollStr}<br>` + history.innerHTML;
+        history.scrollTop = 0;
+      });
+    });
+
+    clearHistoryBtn.addEventListener('click', () => {
+      history.innerHTML = '';
+    });
+
+    rollCustomDiceBtn.addEventListener('click', () => {
+      const sides = parseInt(customSidesInput.value) || 10;
+      const rolls = parseInt(diceInput.value) || 1;
+      const modifier = parseInt(diceForm.elements.modifier.value) || 0;
+
+      const selectedMode = Array.from(modeCheckboxes).find(cb => cb.checked).value;
+
+      const rollStr = rollDice(sides, rolls, modifier, selectedMode);
+      history.innerHTML = `${rollStr}<br>` + history.innerHTML;
+      history.scrollTop = 0;
+    });
+  });
+</script>
+</body>
 </html>
