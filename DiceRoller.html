@@ -30,7 +30,7 @@
     flex: 1;
     margin: 2.5px;
     padding: 5px;
-    font-size: 1.0em; /* Halve font size */
+    font-size: 1.0em;
     width: 100%;
   }
 
@@ -47,25 +47,25 @@
   .dice {
     margin: 5px;
     padding: 10px;
-    font-size: 1.35em; /* Halve font size */
+    font-size: 1.35em;
     cursor: pointer;
   }
 
   .history {
     width: 45%;
-    max-width: 300px; /* Halve max width */
+    max-width: 400px;
     margin: 10px 0;
     padding: 5px;
     border: 1px solid #000;
     background-color: #fff;
-    max-height: 200px; /* Halve max height */
+    max-height: 200px;
     overflow-y: auto;
-    font-size: 1.0em; /* Halve font size */
+    font-size: 1.0em;
   }
 
   .clear-history {
     margin-top: 5px;
-    font-size: 1.0em; /* Halve font size */
+    font-size: 1.0em;
     padding: 5px;
     font-weight: normal;
     width: 100%;
@@ -74,8 +74,8 @@
   p {
     text-align: center;
     width: 95%;
-    max-width: 600px; /* Halve max width */
-    font-size: 1.0em; /* Halve font size */
+    max-width: 600px;
+    font-size: 1.0em;
   }
 
   .custom-roll {
@@ -89,7 +89,7 @@
   .custom-roll button {
     margin: 2.5px;
     padding: 5px;
-    font-size: 1.0em; /* Halve font size */
+    font-size: 1.0em;
     width: 100%;
   }
 
@@ -152,7 +152,6 @@
     const customSidesInput = document.getElementById('custom-sides');
     const modeCheckboxes = document.querySelectorAll('[name="roll-mode"]'); // Roll mode checkboxes
 
-    // Ensure only one mode checkbox is checked
     modeCheckboxes.forEach(checkbox => {
       checkbox.addEventListener('change', () => {
         if (checkbox.checked) {
@@ -163,10 +162,8 @@
       });
     });
 
-    // Default to "normal" mode
     document.getElementById('mode-normal').checked = true;
 
-    // Ensure the number of dice cannot be less than 1
     diceInput.addEventListener('input', () => {
       if (diceInput.value < 1) {
         diceInput.value = 1;
