@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dice Roller</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: #f2f2f2;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+    }
+
+    fieldset {
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    legend {
+      font-weight: bold;
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    .input-form {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .c1 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-form label,
+    .input-form input {
+      font-size: 1em;
+      margin: 2px;
+    }
+
+    .roll-modes,
+    .custom-roll {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .dice-roller {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .dice {
+      padding: 10px;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+
+    .custom-roll input,
+    .custom-roll button {
+      padding: 5px;
+      font-size: 1em;
+    }
+
+    .clear-history {
+      font-size: 1em;
+      padding: 5px;
+      margin-top: 10px;
+    }
+
+    .history {
+      width: 100%;
+      max-width: 400px;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #000;
+      background-color: #fff;
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 1em;
+    }
+    .history-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.roll-custom-dice {
+  height: 48px;
+  font-size: 1.2em;
+  padding: 10px;
+  cursor: pointer;
+  flex: none; /* prevents it from stretching */
+  width: auto; /* allow it to size to its content */
+  white-space: nowrap;
+}
+    #custom-sides {
+  width: 60px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <fieldset>
+      <legend>Dice Roller</legend>
+
+      <form class="input-form" id="dice-form">
+        <div class="c1">
+          <label for="dice">Dice</label>
+          <input type="number" id="dice" name="dice" value="1">
+        </div>
+        <div class="c1">
+          <label for="modifier">Mod</label>
+          <input type="number" id="modifier" name="modifier" value="0">
+        </div>
+      </form>
+
+      <div class="roll-modes">
+        <label><input type="checkbox" name="roll-mode" id="mode-normal" value="normal" /> Normal</label>
+        <label><input type="checkbox" name="roll-mode" id="mode-advantage" value="advantage" /> Advantage</label>
+        <label><input type="checkbox" name="roll-mode" id="mode-disadvantage" value="disadvantage" /> Disadvantage</label>
+      </div>
+
+      <div class="dice-roller">
+        <button class="dice" data-sides="4">d4</button>
+        <button class="dice" data-sides="6">d6</button>
+        <button class="dice" data-sides="8">d8</button>
+        <button class="dice" data-sides="10">d10</button>
+        <button class="dice" data-sides="12">d12</button>
+        <button class="dice" data-sides="20">d20</button>
+        <button class="dice" data-sides="100">d100</button>
+      </div>
+
+      <div class="custom-roll">
+        <button type="button" class="roll-custom-dice">dX</button>
+        <input type="number" id="custom-sides" name="custom-sides" value="3" min="2">
+      </div>
+
+<div class="history-section">
+  <button type="button" class="clear-history">Clear History</button>
+  <div class="history" id="history"></div>
+</div>
+    </fieldset>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const diceButtons = document.querySelectorAll('.dice');
+      const history = document.getElementById('history');
+      const diceForm = document.querySelector('#dice-form');
+      const diceInput = diceForm.elements.dice;
+      const modifierInput = diceForm.elements.modifier;
+      const clearHistoryBtn = document.querySelector('.clear-history');
+      const rollCustomDiceBtn = document.querySelector('.roll-custom-dice');
+      const customSidesInput = document.getElementById('custom-sides');
+      const modeCheckboxes = document.querySelectorAll('[name="roll-mode"]');
+
+      modeCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          if (checkbox.checked) {
+            modeCheckboxes.forEach(cb => {
+              if (cb !== checkbox) cb.checked = false;
+            });
+          }
+        });
+      });
+
+      document.getElementById('mode-normal').checked = true;
+
+      diceInput.addEventListener('input', () => {
+        if (diceInput.value < 1) {
+          diceInput.value = 1;
+        }
+      });
+
+      const formatRoll = (roll, sides) => {
+        return roll === sides ? `<b>${roll}</b>` : roll;
+      };
+
+      const formatRolls = (rollsArray, sides) => {
+        return rollsArray.map(roll => formatRoll(roll, sides)).join(', ');
+      };
+
+      const rollDice = (sides, rolls, modifier, mode) => {
+        let rollsArray = [];
+        for (let i = 0; i < rolls; i++) {
+          rollsArray.push(Math.floor(Math.random() * sides) + 1);
+        }
+
+        let rollStr = `${rolls}d${sides} (${formatRolls(rollsArray, sides)})`;
+
+        if (mode === "advantage") {
+          rollStr += ` = Highest: ${formatRoll(Math.max(...rollsArray), sides)}`;
+        } else if (mode === "disadvantage") {
+          rollStr += ` = Lowest: ${formatRoll(Math.min(...rollsArray), sides)}`;
+        } else {
+          const total = rollsArray.reduce((sum, r) => sum + r, 0) + modifier;
+          if (modifier !== 0) {
+            rollStr += ` + ${modifier}`;
+          }
+          rollStr += ` = ${total}`;
+        }
+
+        return rollStr;
+      };
+
+      diceButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const sides = parseInt(button.dataset.sides);
+          const rolls = parseInt(diceInput.value) || 1;
+          const modifier = parseInt(modifierInput.value) || 0;
+          const selectedMode = Array.from(modeCheckboxes).find(cb => cb.checked).value;
+          const result = rollDice(sides, rolls, modifier, selectedMode);
+          history.innerHTML = `${result}<br>` + history.innerHTML;
+        });
+      });
+
+      clearHistoryBtn.addEventListener('click', () => {
+        history.innerHTML = '';
+      });
+
+      rollCustomDiceBtn.addEventListener('click', () => {
+        const sides = parseInt(customSidesInput.value) || 10;
+        const rolls = parseInt(diceInput.value) || 1;
+        const modifier = parseInt(modifierInput.value) || 0;
+        const selectedMode = Array.from(modeCheckboxes).find(cb => cb.checked).value;
+        const result = rollDice(sides, rolls, modifier, selectedMode);
+        history.innerHTML = `${result}<br>` + history.innerHTML;
+      });
+    });
+  </script>
+</body>
+</html>
