@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forge of Foes 5e Monster Stats</title>
+  <style>
+    fieldset {
+      text-align: left;
+    }
+
+    legend {
+      text-align: center;
+    }
+        #crTitle {
+      font-size: 1.2em; /* Adjust the font size as desired */
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th:nth-child(1), td:nth-child(1),
+    th:nth-child(2), td:nth-child(2) {
+      display: none;
+    }
+
+    th:nth-child(3), th:nth-child(4) {
+      background-color: #f2f2f2;
+    }
+
+    select, input {
+      margin: 10px;
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" href="https://vnavone.github.io/notion_widgets/style_compact.css">
+</head>
+<body>
+  <div id="container">
+    <fieldset>
+      <legend><b>5e Monster Stats</b> (Forge of Foes)</legend>
+      <label for="crSelect">Select CR:</label>
+      <select id="crSelect">
+        <!-- CR Options -->
+        <option value="CR 1" selected>CR 1</option> <!-- Set this option as selected -->
+        <!-- Add more options for other CRs here -->
+      </select>
+      <div id="statBlock">
+        <!-- Stat Block -->
+      </div>
+    </fieldset>
+  </div>
+
+  <script>
+    const data = {
+	"CR 0": {"AC/DC": 10, "HP": "3 (2-4)", "Attack/Prof Bonus": "+2", "# of Attacks": "1", "Damage per Attack": "2 (1d4)","Examples": "Commoner, rat, spider"},
+	"CR 1/8": {"AC/DC": 11, "HP": "9 (7-11)", "Attack/Prof Bonus": "+3", "# of Attacks": "1", "Damage per Attack": "4 (1d6 + 1)","Examples": "Bandit, cultist, giant rat"},
+	"CR 1/4": {"AC/DC": 11, "HP": "13 (10-16)", "Attack/Prof Bonus": "+3", "# of Attacks": "1", "Damage per Attack": "5 (1d6 + 2)","Examples": "Acolyte, skeleton, wolf"},
+	"CR 1/2": {"AC/DC": 12, "HP": "22 (17-28)", "Attack/Prof Bonus": "+4", "# of Attacks": "2", "Damage per Attack": "4 (1d4 + 2)","Examples": "Black bear, scout, shadow"},
+	"CR 1": {"AC/DC": 12, "HP": "33 (25-41)", "Attack/Prof Bonus": "+5", "# of Attacks": "2", "Damage per Attack": "6 (1d8 + 2)","Examples": "Dire wolf, specter, spy"},
+	"CR 2": {"AC/DC": 13, "HP": "45 (34-56)", "Attack/Prof Bonus": "+5", "# of Attacks": "2", "Damage per Attack": "9 (2d6 + 2)","Examples": "Ghast, ogre, priest"},
+	"CR 3": {"AC/DC": 13, "HP": "65 (49-81)", "Attack/Prof Bonus": "+5", "# of Attacks": "2", "Damage per Attack": "12 (2d8 + 3)","Examples": "Knight, mummy, werewolf"},
+	"CR 4": {"AC/DC": 14, "HP": "84 (64-106)", "Attack/Prof Bonus": "+6", "# of Attacks": "2", "Damage per Attack": "14 (3d8 + 1)","Examples": "Ettin, ghost"},
+	"CR 5": {"AC/DC": 15, "HP": "95 (71-119)", "Attack/Prof Bonus": "+7", "# of Attacks": "3", "Damage per Attack": "12 (3d6 + 2)","Examples": "Elemental, gladiator, vampire spawn"},
+	"CR 6": {"AC/DC": 15, "HP": "112 (84-140)", "Attack/Prof Bonus": "+7", "# of Attacks": "3", "Damage per Attack": "14 (3d6 + 4)","Examples": "Mage, medusa, wyvern"},
+	"CR 7": {"AC/DC": 15, "HP": "130 (98-162)", "Attack/Prof Bonus": "+7", "# of Attacks": "3", "Damage per Attack": "16 (3d8 + 3)","Examples": "Stone giant, young black dragon"},
+	"CR 8": {"AC/DC": 15, "HP": "136 (102-170)", "Attack/Prof Bonus": "+7", "# of Attacks": "3", "Damage per Attack": "18 (3d10 + 2)","Examples": "Assassin, frost giant"},
+	"CR 9": {"AC/DC": 16, "HP": "145 (109-181)", "Attack/Prof Bonus": "+8", "# of Attacks": "3", "Damage per Attack": "22 (3d12 + 3)","Examples": "Bone devil, fire giant, young blue dragon"},
+	"CR 10": {"AC/DC": 17, "HP": "155 (116-194)", "Attack/Prof Bonus": "+9", "# of Attacks": "4", "Damage per Attack": "16 (3d8 + 3)","Examples": "Stone golem, young red dragon"},
+	"CR 11": {"AC/DC": 17, "HP": "165 (124-206)", "Attack/Prof Bonus": "+9", "# of Attacks": "4", "Damage per Attack": "18 (3d10 + 2)","Examples": "Djinni, efreeti, horned devil"},
+	"CR 12": {"AC/DC": 17, "HP": "175 (131-219)", "Attack/Prof Bonus": "+9", "# of Attacks": "4", "Damage per Attack": "19 (3d10 + 3)","Examples": "Archmage, erinyes"},
+	"CR 13": {"AC/DC": 18, "HP": "184 (138-230)", "Attack/Prof Bonus": "+10", "# of Attacks": "4", "Damage per Attack": "21 (4d8 + 3)","Examples": "Adult white dragon, storm giant, vampire"},
+	"CR 14": {"AC/DC": 19, "HP": "196 (147-245)", "Attack/Prof Bonus": "+11", "# of Attacks": "4", "Damage per Attack": "22 (4d10)","Examples": "Adult black dragon, ice devil"},
+	"CR 15": {"AC/DC": 19, "HP": "210 (158-263)", "Attack/Prof Bonus": "+11", "# of Attacks": "5", "Damage per Attack": "19 (3d10 + 3)","Examples": "Adult green dragon, mummy lord, purple worm"},
+	"CR 16": {"AC/DC": 19, "HP": "229 (172-286)", "Attack/Prof Bonus": "+11", "# of Attacks": "5", "Damage per Attack": "21 (4d8 + 3)","Examples": "Adult blue dragon, iron golem, marilith"},
+	"CR 17": {"AC/DC": 20, "HP": "246 (185-308)", "Attack/Prof Bonus": "+12", "# of Attacks": "5", "Damage per Attack": "22 (3d12 + 3)","Examples": "Adult red dragon"},
+	"CR 18": {"AC/DC": 21, "HP": "266 (200-333)", "Attack/Prof Bonus": "+13", "# of Attacks": "5", "Damage per Attack": "23 (4d10 + 1)","Examples": "Demilich"},
+	"CR 19": {"AC/DC": 21, "HP": "285 (214-356)", "Attack/Prof Bonus": "+13", "# of Attacks": "5", "Damage per Attack": "24 (4d10 + 2)","Examples": "Balor"},
+	"CR 20": {"AC/DC": 21, "HP": "300 (225-375)", "Attack/Prof Bonus": "+13", "# of Attacks": "5", "Damage per Attack": "26 (4d12)","Examples": "Ancient white dragon, pit fiend"},
+	"CR 21": {"AC/DC": 22, "HP": "325 (244-406)", "Attack/Prof Bonus": "+14", "# of Attacks": "5", "Damage per Attack": "30 (4d12 + 4)","Examples": "Ancient black dragon, lich, solar"},
+	"CR 22": {"AC/DC": 23, "HP": "350 (263-438)", "Attack/Prof Bonus": "+15", "# of Attacks": "5", "Damage per Attack": "34 (4d12 + 8)","Examples": "Ancient green dragon"},
+	"CR 23": {"AC/DC": 23, "HP": "375 (281-469)", "Attack/Prof Bonus": "+15", "# of Attacks": "5", "Damage per Attack": "37 (6d10 + 4)","Examples": "Ancient blue dragon, kraken"},
+	"CR 24": {"AC/DC": 23, "HP": "400 (300-500)", "Attack/Prof Bonus": "+15", "# of Attacks": "5", "Damage per Attack": "41 (6d10 + 8)","Examples": "Ancient red dragon"},
+	"CR 25": {"AC/DC": 24, "HP": "430 (323-538)", "Attack/Prof Bonus": "+16", "# of Attacks": "5", "Damage per Attack": "44 (6d10 + 11)","Examples": "Demon princes, archdevils"},
+	"CR 26": {"AC/DC": 25, "HP": "460 (345-575)", "Attack/Prof Bonus": "+17", "# of Attacks": "5", "Damage per Attack": "48 (6d10 + 15)","Examples": "Demon princes, archdevils"},
+	"CR 27": {"AC/DC": 25, "HP": "490 (368-613)", "Attack/Prof Bonus": "+17", "# of Attacks": "5", "Damage per Attack": "52 (6d10 + 19)","Examples": "Demon princes, archdevils"},
+	"CR 28": {"AC/DC": 25, "HP": "540 (405-675)", "Attack/Prof Bonus": "+17", "# of Attacks": "5", "Damage per Attack": "55 (6d10 + 22)","Examples": "Demon princes, archdevils"},
+	"CR 29": {"AC/DC": 26, "HP": "600 (450-750)", "Attack/Prof Bonus": "+18", "# of Attacks": "5", "Damage per Attack": "59 (6d10 + 26)","Examples": "Demon princes, archdevils"},
+	"CR 30": {"AC/DC": 27, "HP": "666 (500-833)", "Attack/Prof Bonus": "+19", "# of Attacks": "5", "Damage per Attack": "62 (6d10 + 29)","Examples": "Demigods, tarrasque"},
+    };
+
+    // Populate CR options
+    const crSelect = document.getElementById('crSelect');
+    for (const cr in data) {
+      const option = document.createElement("option");
+      option.value = cr;
+      option.text = cr;
+      crSelect.appendChild(option);
+    }
+
+    // Show stats
+    function showStats() {
+      const cr = crSelect.value;
+      const stats = data[cr];
+      let output = `<div id='crTitle'><strong>${cr}</strong></div>`;
+      for (const key in stats) {
+        output += `<strong>${key}:</strong> ${stats[key]}<br>`;
+      }
+      document.getElementById('statBlock').innerHTML = output;
+    }
+
+    crSelect.addEventListener('change', showStats);
+
+    // Show initial stats
+    showStats();
+  </script>
+</body>
+</html>
