@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dice Roller</title>
   <style>
     body {
@@ -74,16 +74,14 @@
       margin: 10px 0;
     }
 
-    .dice {
+    .dice,
+    .roll-custom-dice {
       padding: 10px;
       font-size: 1.2em;
       cursor: pointer;
-    }
-
-    .custom-roll input,
-    .custom-roll button {
-      padding: 5px;
-      font-size: 1em;
+      width: 60px;
+      height: 42px;
+      text-align: center;
     }
 
     .clear-history {
@@ -103,29 +101,21 @@
       overflow-y: auto;
       font-size: 1em;
     }
+
     .history-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-.roll-custom-dice {
-  height: 48px;
-  font-size: 1.2em;
-  padding: 10px;
-  cursor: pointer;
-  flex: none; /* prevents it from stretching */
-  width: auto; /* allow it to size to its content */
-  white-space: nowrap;
-}
-    #custom-sides {
-  width: 60px;
-}
-        #dice {
-  width: 70px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
     }
-        #modifier {
-  width: 70px;
+
+    #dice,
+    #modifier,
+    #custom-sides {
+      width: 70px;
+      height: 42px;
+      font-size: 1em;
+      box-sizing: border-box;
     }
   </style>
 </head>
@@ -137,11 +127,11 @@
       <form class="input-form" id="dice-form">
         <div class="c1">
           <label for="dice"># of Dice</label>
-          <input type="number" id="dice" name="dice" value="1">
+          <input type="number" id="dice" name="dice" value="1" />
         </div>
         <div class="c1">
           <label for="modifier">Modifier</label>
-          <input type="number" id="modifier" name="modifier" value="0">
+          <input type="number" id="modifier" name="modifier" value="0" />
         </div>
       </form>
 
@@ -163,13 +153,13 @@
 
       <div class="custom-roll">
         <button type="button" class="roll-custom-dice">dX</button>
-        <input type="number" id="custom-sides" name="custom-sides" value="3" min="2">
+        <input type="number" id="custom-sides" name="custom-sides" value="3" min="2" />
       </div>
 
-<div class="history-section">
-  <button type="button" class="clear-history">Clear History</button>
-  <div class="history" id="history"></div>
-</div>
+      <div class="history-section">
+        <button type="button" class="clear-history">Clear History</button>
+        <div class="history" id="history"></div>
+      </div>
     </fieldset>
   </div>
 
@@ -250,7 +240,9 @@
       });
 
       rollCustomDiceBtn.addEventListener('click', () => {
-        const sides = parseInt(customSidesInput.value) || 10;
+        const sides = parseInt(customSidesInput.value);
+        if (!sides || sides < 2) return;
+
         const rolls = parseInt(diceInput.value) || 1;
         const modifier = parseInt(modifierInput.value) || 0;
         const selectedMode = Array.from(modeCheckboxes).find(cb => cb.checked).value;
