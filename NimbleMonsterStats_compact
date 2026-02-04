@@ -1,1 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monster Level Stats</title>
+  <style>
+    fieldset {
+      text-align: left;
+    }
 
+    legend {
+      text-align: center;
+    }
+
+    #levelTitle {
+      font-size: 1.2em;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th:nth-child(1), td:nth-child(1),
+    th:nth-child(2), td:nth-child(2) {
+      display: none;
+    }
+
+    th:nth-child(3), th:nth-child(4) {
+      background-color: #f2f2f2;
+    }
+
+    select, input {
+      margin: 10px;
+    }
+
+    #statBlock {
+      margin-top: 15px;
+    }
+
+    #statBlock strong {
+      display: inline-block;
+      min-width: 150px;
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" href="https://vnavone.github.io/notion_widgets/style.css">
+</head>
+<body>
+  <div id="container">
+    <fieldset>
+      <legend><b>Monster Level Stats</b></legend>
+      <label for="levelSelect">Select Monster Level:</label>
+      <select id="levelSelect">
+        <option value="1/4">Level 1/4</option>
+        <option value="1/3">Level 1/3</option>
+        <option value="1/2">Level 1/2</option>
+        <option value="1" selected>Level 1</option>
+        <option value="2">Level 2</option>
+        <option value="3">Level 3</option>
+        <option value="4">Level 4</option>
+        <option value="5">Level 5</option>
+        <option value="6">Level 6</option>
+        <option value="7">Level 7</option>
+        <option value="8">Level 8</option>
+        <option value="9">Level 9</option>
+        <option value="10">Level 10</option>
+        <option value="11">Level 11</option>
+        <option value="12">Level 12</option>
+        <option value="13">Level 13</option>
+        <option value="14">Level 14</option>
+        <option value="15">Level 15</option>
+        <option value="16">Level 16</option>
+        <option value="17">Level 17</option>
+        <option value="18">Level 18</option>
+        <option value="19">Level 19</option>
+        <option value="20">Level 20</option>
+      </select>
+      <div id="statBlock">
+        <!-- Stat Block -->
+      </div>
+    </fieldset>
+  </div>
+
+  <script>
+    const data = {
+      "1/4": {
+        "CR Equivalent": "1/8",
+        "HP No Armor": 12,
+        "HP Medium Armor": 9,
+        "HP Heavy Armor": 7,
+        "Damage/Round": 3,
+        "Attack Sample Dice": "1d4+1",
+        "Save DC": 9
+      },
+      "1/3": {
+        "CR Equivalent": "1/4",
+        "HP No Armor": 15,
+        "HP Medium Armor": 11,
+        "HP Heavy Armor": 8,
+        "Damage/Round": 5,
+        "Attack Sample Dice": "1d6+2",
+        "Save DC": 9
+      },
+      "1/2": {
+        "CR Equivalent": "1/4",
+        "HP No Armor": 18,
+        "HP Medium Armor": 15,
+        "HP Heavy Armor": 11,
+        "Damage/Round": 7,
+        "Attack Sample Dice": "1d6+3",
+        "Save DC": 10
+      },
+      "1": {
+        "CR Equivalent": "1/2",
+        "HP No Armor": 26,
+        "HP Medium Armor": 20,
+        "HP Heavy Armor": 16,
+        "Damage/Round": 11,
+        "Attack Sample Dice": "2d8+2 or (2x) 1d8+1",
+        "Save DC": 10
+      },
+      "2": {
+        "CR Equivalent": "1",
+        "HP No Armor": 34,
+        "HP Medium Armor": 27,
+        "HP Heavy Armor": 20,
+        "Damage/Round": 13,
+        "Attack Sample Dice": "2d8+4 or (2x) 1d8+3",
+        "Save DC": 11
+      },
+      "3": {
+        "CR Equivalent": "1",
+        "HP No Armor": 41,
+        "HP Medium Armor": 33,
+        "HP Heavy Armor": 25,
+        "Damage/Round": 15,
+        "Attack Sample Dice": "2d8+6 or (2x) 1d8+4",
+        "Save DC": 11
+      },
+      "4": {
+        "CR Equivalent": "2",
+        "HP No Armor": 49,
+        "HP Medium Armor": 39,
+        "HP Heavy Armor": 29,
+        "Damage/Round": 18,
+        "Attack Sample Dice": "2d8+9 or (2x) 1d8+5",
+        "Save DC": 12
+      },
+      "5": {
+        "CR Equivalent": "2",
+        "HP No Armor": 58,
+        "HP Medium Armor": 46,
+        "HP Heavy Armor": 35,
+        "Damage/Round": 19,
+        "Attack Sample Dice": "2d8+10 or (2x) 1d8+6",
+        "Save DC": 12
+      },
+      "6": {
+        "CR Equivalent": "3",
+        "HP No Armor": 68,
+        "HP Medium Armor": 54,
+        "HP Heavy Armor": 41,
+        "Damage/Round": 21,
+        "Attack Sample Dice": "2d8+12 or (2x) 1d8+7",
+        "Save DC": 13
+      },
+      "7": {
+        "CR Equivalent": "3",
+        "HP No Armor": 79,
+        "HP Medium Armor": 63,
+        "HP Heavy Armor": 47,
+        "Damage/Round": 24,
+        "Attack Sample Dice": "3d8+10 or (2x) 2d8+4",
+        "Save DC": 13
+      },
+      "8": {
+        "CR Equivalent": "4",
+        "HP No Armor": 91,
+        "HP Medium Armor": 73,
+        "HP Heavy Armor": 55,
+        "Damage/Round": 26,
+        "Attack Sample Dice": "3d8+12 or (2x) 2d8+5",
+        "Save DC": 14
+      },
+      "9": {
+        "CR Equivalent": "4",
+        "HP No Armor": 104,
+        "HP Medium Armor": 83,
+        "HP Heavy Armor": 62,
+        "Damage/Round": 28,
+        "Attack Sample Dice": "4d8+10 or (2x) 2d8+6",
+        "Save DC": 14
+      },
+      "10": {
+        "CR Equivalent": "5",
+        "HP No Armor": 118,
+        "HP Medium Armor": 94,
+        "HP Heavy Armor": 71,
+        "Damage/Round": 30,
+        "Attack Sample Dice": "4d8+12 or (2x) 2d8+7",
+        "Save DC": 15
+      },
+      "11": {
+        "CR Equivalent": "6",
+        "HP No Armor": 133,
+        "HP Medium Armor": 106,
+        "HP Heavy Armor": 80,
+        "Damage/Round": 33,
+        "Attack Sample Dice": "5d8+11 or (2x) 3d8+3",
+        "Save DC": 15
+      },
+      "12": {
+        "CR Equivalent": "7",
+        "HP No Armor": 149,
+        "HP Medium Armor": 119,
+        "HP Heavy Armor": 89,
+        "Damage/Round": 35,
+        "Attack Sample Dice": "5d8+13 or (2x) 3d8+4",
+        "Save DC": 16
+      },
+      "13": {
+        "CR Equivalent": "8",
+        "HP No Armor": 166,
+        "HP Medium Armor": 132,
+        "HP Heavy Armor": 100,
+        "Damage/Round": 38,
+        "Attack Sample Dice": "6d8+11 or (2x) 3d8+6",
+        "Save DC": 16
+      },
+      "14": {
+        "CR Equivalent": "9",
+        "HP No Armor": 184,
+        "HP Medium Armor": 147,
+        "HP Heavy Armor": 110,
+        "Damage/Round": 40,
+        "Attack Sample Dice": "6d8+13 or (2x) 3d8+7",
+        "Save DC": 17
+      },
+      "15": {
+        "CR Equivalent": "9",
+        "HP No Armor": 203,
+        "HP Medium Armor": 162,
+        "HP Heavy Armor": 122,
+        "Damage/Round": 43,
+        "Attack Sample Dice": "7d8+11 or (2x) 3d8+8",
+        "Save DC": 17
+      },
+      "16": {
+        "CR Equivalent": "10",
+        "HP No Armor": 223,
+        "HP Medium Armor": 178,
+        "HP Heavy Armor": 134,
+        "Damage/Round": 45,
+        "Attack Sample Dice": "7d8+13 or (2x) 4d8+5",
+        "Save DC": 18
+      },
+      "17": {
+        "CR Equivalent": "11",
+        "HP No Armor": 244,
+        "HP Medium Armor": 195,
+        "HP Heavy Armor": 146,
+        "Damage/Round": 48,
+        "Attack Sample Dice": "8d8+12 or (2x) 4d8+6",
+        "Save DC": 18
+      },
+      "18": {
+        "CR Equivalent": "12",
+        "HP No Armor": 266,
+        "HP Medium Armor": 213,
+        "HP Heavy Armor": 160,
+        "Damage/Round": 50,
+        "Attack Sample Dice": "8d8+14 or (2x) 4d8+7",
+        "Save DC": 19
+      },
+      "19": {
+        "CR Equivalent": "13",
+        "HP No Armor": 289,
+        "HP Medium Armor": 231,
+        "HP Heavy Armor": 173,
+        "Damage/Round": 52,
+        "Attack Sample Dice": "9d8+12 or (2x) 4d8+8",
+        "Save DC": 19
+      },
+      "20": {
+        "CR Equivalent": "14",
+        "HP No Armor": 313,
+        "HP Medium Armor": 250,
+        "HP Heavy Armor": 189,
+        "Damage/Round": 54,
+        "Attack Sample Dice": "9d8+13 or (2x) 4d8+9",
+        "Save DC": 20
+      }
+    };
+
+    const levelSelect = document.getElementById('levelSelect');
+
+    // Show stats
+    function showStats() {
+      const level = levelSelect.value;
+      const stats = data[level];
+      let output = `<div id='levelTitle'><strong>Monster Level ${level}</strong></div><br>`;
+      for (const key in stats) {
+        output += `<strong>${key}:</strong> ${stats[key]}<br>`;
+      }
+      document.getElementById('statBlock').innerHTML = output;
+    }
+
+    levelSelect.addEventListener('change', showStats);
+
+    // Show initial stats
+    showStats();
+  </script>
+</body>
+</html>
