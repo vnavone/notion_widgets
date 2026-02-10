@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nimble Legendary Monster Stats</title>
+  <style>
+    fieldset {
+      text-align: left;
+    }
+
+    legend {
+      text-align: center;
+    }
+
+    #levelTitle {
+      font-size: 1.2em;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th:nth-child(1), td:nth-child(1),
+    th:nth-child(2), td:nth-child(2) {
+      display: none;
+    }
+
+    th:nth-child(3), th:nth-child(4) {
+      background-color: #f2f2f2;
+    }
+
+    select, input {
+      margin: 10px;
+    }
+
+    #statBlock {
+      margin-top: 15px;
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" href="https://vnavone.github.io/notion_widgets/style.css">
+</head>
+<body>
+  <div id="container">
+    <fieldset>
+      <legend><b>Nimble Legendary Monster Stats</b></legend>
+      <label for="levelSelect">Select Party Level:</label>
+      <select id="levelSelect">
+        <option value="1" selected>Level 1</option>
+        <option value="2">Level 2</option>
+        <option value="3">Level 3</option>
+        <option value="4">Level 4</option>
+        <option value="5">Level 5</option>
+        <option value="6">Level 6</option>
+        <option value="7">Level 7</option>
+        <option value="8">Level 8</option>
+        <option value="9">Level 9</option>
+        <option value="10">Level 10</option>
+        <option value="11">Level 11</option>
+        <option value="12">Level 12</option>
+        <option value="13">Level 13</option>
+        <option value="14">Level 14</option>
+        <option value="15">Level 15</option>
+        <option value="16">Level 16</option>
+        <option value="17">Level 17</option>
+        <option value="18">Level 18</option>
+        <option value="19">Level 19</option>
+        <option value="20">Level 20</option>
+      </select>
+      <div id="statBlock">
+        <!-- Stat Block -->
+      </div>
+    </fieldset>
+  </div>
+
+  <script>
+    const data = {
+      "1": {
+        "HP Medium Armor": 50,
+        "HP Heavy Armor": 35,
+        "HP Last Stand": 10,
+        "Save DC": 10,
+        "Attack Damage Small": 8,
+        "Attack Damage Big": 16
+      },
+      "2": {
+        "HP Medium Armor": 75,
+        "HP Heavy Armor": 55,
+        "HP Last Stand": 20,
+        "Save DC": 11,
+        "Attack Damage Small": 9,
+        "Attack Damage Big": 18
+      },
+      "3": {
+        "HP Medium Armor": 100,
+        "HP Heavy Armor": 75,
+        "HP Last Stand": 30,
+        "Save DC": 11,
+        "Attack Damage Small": 10,
+        "Attack Damage Big": 20
+      },
+      "4": {
+        "HP Medium Armor": 125,
+        "HP Heavy Armor": 95,
+        "HP Last Stand": 40,
+        "Save DC": 12,
+        "Attack Damage Small": 11,
+        "Attack Damage Big": 22
+      },
+      "5": {
+        "HP Medium Armor": 150,
+        "HP Heavy Armor": 115,
+        "HP Last Stand": 50,
+        "Save DC": 12,
+        "Attack Damage Small": 12,
+        "Attack Damage Big": 24
+      },
+      "6": {
+        "HP Medium Armor": 175,
+        "HP Heavy Armor": 135,
+        "HP Last Stand": 60,
+        "Save DC": 13,
+        "Attack Damage Small": 13,
+        "Attack Damage Big": 26
+      },
+      "7": {
+        "HP Medium Armor": 200,
+        "HP Heavy Armor": 155,
+        "HP Last Stand": 70,
+        "Save DC": 13,
+        "Attack Damage Small": 14,
+        "Attack Damage Big": 28
+      },
+      "8": {
+        "HP Medium Armor": 225,
+        "HP Heavy Armor": 175,
+        "HP Last Stand": 80,
+        "Save DC": 14,
+        "Attack Damage Small": 15,
+        "Attack Damage Big": 30
+      },
+      "9": {
+        "HP Medium Armor": 250,
+        "HP Heavy Armor": 195,
+        "HP Last Stand": 90,
+        "Save DC": 14,
+        "Attack Damage Small": 16,
+        "Attack Damage Big": 32
+      },
+      "10": {
+        "HP Medium Armor": 275,
+        "HP Heavy Armor": 215,
+        "HP Last Stand": 100,
+        "Save DC": 15,
+        "Attack Damage Small": 17,
+        "Attack Damage Big": 34
+      },
+      "11": {
+        "HP Medium Armor": 300,
+        "HP Heavy Armor": 235,
+        "HP Last Stand": 110,
+        "Save DC": 15,
+        "Attack Damage Small": 18,
+        "Attack Damage Big": 36
+      },
+      "12": {
+        "HP Medium Armor": 325,
+        "HP Heavy Armor": 255,
+        "HP Last Stand": 120,
+        "Save DC": 16,
+        "Attack Damage Small": 19,
+        "Attack Damage Big": 38
+      },
+      "13": {
+        "HP Medium Armor": 350,
+        "HP Heavy Armor": 275,
+        "HP Last Stand": 130,
+        "Save DC": 16,
+        "Attack Damage Small": 20,
+        "Attack Damage Big": 40
+      },
+      "14": {
+        "HP Medium Armor": 375,
+        "HP Heavy Armor": 295,
+        "HP Last Stand": 140,
+        "Save DC": 17,
+        "Attack Damage Small": 21,
+        "Attack Damage Big": 42
+      },
+      "15": {
+        "HP Medium Armor": 400,
+        "HP Heavy Armor": 315,
+        "HP Last Stand": 150,
+        "Save DC": 17,
+        "Attack Damage Small": 22,
+        "Attack Damage Big": 44
+      },
+      "16": {
+        "HP Medium Armor": 425,
+        "HP Heavy Armor": 335,
+        "HP Last Stand": 160,
+        "Save DC": 18,
+        "Attack Damage Small": 23,
+        "Attack Damage Big": 46
+      },
+      "17": {
+        "HP Medium Armor": 450,
+        "HP Heavy Armor": 355,
+        "HP Last Stand": 170,
+        "Save DC": 18,
+        "Attack Damage Small": 24,
+        "Attack Damage Big": 48
+      },
+      "18": {
+        "HP Medium Armor": 475,
+        "HP Heavy Armor": 375,
+        "HP Last Stand": 180,
+        "Save DC": 19,
+        "Attack Damage Small": 25,
+        "Attack Damage Big": 50
+      },
+      "19": {
+        "HP Medium Armor": 500,
+        "HP Heavy Armor": 395,
+        "HP Last Stand": 190,
+        "Save DC": 19,
+        "Attack Damage Small": 26,
+        "Attack Damage Big": 52
+      },
+      "20": {
+        "HP Medium Armor": 525,
+        "HP Heavy Armor": 415,
+        "HP Last Stand": 200,
+        "Save DC": 20,
+        "Attack Damage Small": 27,
+        "Attack Damage Big": 54
+      }
+    };
+
+    const levelSelect = document.getElementById('levelSelect');
+
+    // Show stats
+    function showStats() {
+      const level = levelSelect.value;
+      const stats = data[level];
+      let output = `<div id='levelTitle'><strong>Party Level ${level}</strong></div><br>`;
+      for (const key in stats) {
+        output += `<strong>${key}:</strong> ${stats[key]}<br>`;
+      }
+      document.getElementById('statBlock').innerHTML = output;
+    }
+
+    levelSelect.addEventListener('change', showStats);
+
+    // Show initial stats
+    showStats();
+  </script>
+</body>
+</html>
