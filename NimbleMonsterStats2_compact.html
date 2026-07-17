@@ -3,44 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nimble Monster Level Stats</title>
+  <title>Monster Level Stats</title>
   <style>
     fieldset {
       text-align: left;
     }
-
     legend {
       text-align: center;
     }
-
     #levelTitle {
       font-size: 1.2em;
     }
-
     table {
       border-collapse: collapse;
       width: 100%;
     }
-
     th, td {
       border: 1px solid #ccc;
       padding: 8px;
       text-align: left;
     }
-
     th:nth-child(1), td:nth-child(1),
     th:nth-child(2), td:nth-child(2) {
       display: none;
     }
-
     th:nth-child(3), th:nth-child(4) {
       background-color: #f2f2f2;
     }
-
     select, input {
       margin: 10px;
     }
-
     #statBlock {
       margin-top: 15px;
     }
@@ -81,16 +73,17 @@
       </div>
     </fieldset>
   </div>
-
   <script>
     const data = {
       "1/3": {
         "CR Equivalent": "1/8",
-        "HP No Armor": 7,
+        "HP No Armor": 8,
         "HP Medium Armor": "-",
         "HP Heavy Armor": "-",
-        "Damage/Round": 4,
-        "Attack Sample Dice": "1d4+1 or 1d6",
+        "Damage 1 Attack": "3.5 (can't crit)",
+        "Damage 2 Attacks": "-",
+        "Damage 3 Attacks": "-",
+        "Damage 4 Attacks": "-",
         "Save DC": 10
       },
       "1/2": {
@@ -98,194 +91,234 @@
         "HP No Armor": 12,
         "HP Medium Armor": "-",
         "HP Heavy Armor": "-",
-        "Damage/Round": 6,
-        "Attack Sample Dice": "1d4+3 or 1d6+2",
+        "Damage 1 Attack": "5 (crit:+1)",
+        "Damage 2 Attacks": "-",
+        "Damage 3 Attacks": "-",
+        "Damage 4 Attacks": "-",
         "Save DC": 11
       },
       "1": {
         "CR Equivalent": "1/2",
-        "HP No Armor": 25,
+        "HP No Armor": 17,
         "HP Medium Armor": "-",
         "HP Heavy Armor": "-",
-        "Damage/Round": 11,
-        "Attack Sample Dice": "2d6+4 or 2d10",
+        "Damage 1 Attack": 8,
+        "Damage 2 Attacks": "-",
+        "Damage 3 Attacks": "-",
+        "Damage 4 Attacks": "-",
         "Save DC": 11
       },
       "2": {
         "CR Equivalent": "1",
-        "HP No Armor": 33,
-        "HP Medium Armor": 23,
+        "HP No Armor": 25,
+        "HP Medium Armor": 18,
         "HP Heavy Armor": "-",
-        "Damage/Round": 15,
-        "Attack Sample Dice": "2d8+5 or 2d12+2",
+        "Damage 1 Attack": 12,
+        "Damage 2 Attacks": 5.5,
+        "Damage 3 Attacks": "-",
+        "Damage 4 Attacks": "-",
         "Save DC": 11
       },
       "3": {
         "CR Equivalent": "1",
-        "HP No Armor": 42,
-        "HP Medium Armor": 29,
-        "HP Heavy Armor": 19,
-        "Damage/Round": 18,
-        "Attack Sample Dice": "2d8+9 or (2x) 1d8+4",
+        "HP No Armor": 33,
+        "HP Medium Armor": 23,
+        "HP Heavy Armor": 15,
+        "Damage 1 Attack": 16,
+        "Damage 2 Attacks": 7,
+        "Damage 3 Attacks": "-",
+        "Damage 4 Attacks": "-",
         "Save DC": 12
       },
       "4": {
         "CR Equivalent": "2",
-        "HP No Armor": 50,
-        "HP Medium Armor": 35,
-        "HP Heavy Armor": 22,
-        "Damage/Round": 20,
-        "Attack Sample Dice": "2d8+11 or (2x) 1d8+5",
+        "HP No Armor": 42,
+        "HP Medium Armor": 30,
+        "HP Heavy Armor": 19,
+        "Damage 1 Attack": 20,
+        "Damage 2 Attacks": 9,
+        "Damage 3 Attacks": "-",
+        "Damage 4 Attacks": "-",
         "Save DC": 12
       },
       "5": {
         "CR Equivalent": "2",
-        "HP No Armor": 58,
-        "HP Medium Armor": 40,
-        "HP Heavy Armor": 26,
-        "Damage/Round": 23,
-        "Attack Sample Dice": "2d12+10 or (2x) 2d10+1",
+        "HP No Armor": 51,
+        "HP Medium Armor": 37,
+        "HP Heavy Armor": 24,
+        "Damage 1 Attack": 24,
+        "Damage 2 Attacks": 10.5,
+        "Damage 3 Attacks": 6,
+        "Damage 4 Attacks": "-",
         "Save DC": 13
       },
       "6": {
         "CR Equivalent": "3",
-        "HP No Armor": 69,
-        "HP Medium Armor": 49,
-        "HP Heavy Armor": 31,
-        "Damage/Round": 25,
-        "Attack Sample Dice": "1d8+20 or (2x) 2d10+2",
+        "HP No Armor": 60,
+        "HP Medium Armor": 43,
+        "HP Heavy Armor": 29,
+        "Damage 1 Attack": 28,
+        "Damage 2 Attacks": 12.5,
+        "Damage 3 Attacks": 7,
+        "Damage 4 Attacks": "-",
         "Save DC": 13
       },
       "7": {
         "CR Equivalent": "3",
-        "HP No Armor": 82,
-        "HP Medium Armor": 57,
-        "HP Heavy Armor": 37,
-        "Damage/Round": 26,
-        "Attack Sample Dice": "1d10+20 or (3x) 2d8",
+        "HP No Armor": 70,
+        "HP Medium Armor": 51,
+        "HP Heavy Armor": 35,
+        "Damage 1 Attack": 32,
+        "Damage 2 Attacks": 14,
+        "Damage 3 Attacks": 8,
+        "Damage 4 Attacks": "-",
         "Save DC": 13
       },
       "8": {
         "CR Equivalent": "4",
-        "HP No Armor": 95,
-        "HP Medium Armor": 66,
-        "HP Heavy Armor": 43,
-        "Damage/Round": 28,
-        "Attack Sample Dice": "d44 or 4d8+10 or (2x) 3d8",
+        "HP No Armor": 80,
+        "HP Medium Armor": 59,
+        "HP Heavy Armor": 41,
+        "Damage 1 Attack": 35,
+        "Damage 2 Attacks": 15.5,
+        "Damage 3 Attacks": 9,
+        "Damage 4 Attacks": "-",
         "Save DC": 13
       },
       "9": {
         "CR Equivalent": "4",
-        "HP No Armor": 108,
-        "HP Medium Armor": 76,
-        "HP Heavy Armor": 49,
-        "Damage/Round": 30,
-        "Attack Sample Dice": "2d8+20 or (2x) 1d8+10",
+        "HP No Armor": 90,
+        "HP Medium Armor": 66,
+        "HP Heavy Armor": 47,
+        "Damage 1 Attack": 39,
+        "Damage 2 Attacks": 17,
+        "Damage 3 Attacks": 10,
+        "Damage 4 Attacks": "-",
         "Save DC": 14
       },
       "10": {
         "CR Equivalent": "5",
-        "HP No Armor": 122,
-        "HP Medium Armor": 85,
-        "HP Heavy Armor": 55,
-        "Damage/Round": 32,
-        "Attack Sample Dice": "(2x) 1d8+10 or (3x) 1d8+5",
+        "HP No Armor": 101,
+        "HP Medium Armor": 75,
+        "HP Heavy Armor": 54,
+        "Damage 1 Attack": 43,
+        "Damage 2 Attacks": 19,
+        "Damage 3 Attacks": 11,
+        "Damage 4 Attacks": 6.5,
         "Save DC": 14
       },
       "11": {
         "CR Equivalent": "6",
-        "HP No Armor": 135,
-        "HP Medium Armor": 96,
-        "HP Heavy Armor": 64,
-        "Damage/Round": 34,
-        "Attack Sample Dice": "(2x) 1d12+10 or (3x) 1d20",
+        "HP No Armor": 112,
+        "HP Medium Armor": 84,
+        "HP Heavy Armor": 61,
+        "Damage 1 Attack": 47,
+        "Damage 2 Attacks": 20.5,
+        "Damage 3 Attacks": 12,
+        "Damage 4 Attacks": 7,
         "Save DC": 14
       },
       "12": {
         "CR Equivalent": "7",
-        "HP No Armor": 148,
-        "HP Medium Armor": 108,
-        "HP Heavy Armor": 73,
-        "Damage/Round": 36,
-        "Attack Sample Dice": "d44+10 or (3x) 1d12+5",
+        "HP No Armor": 124,
+        "HP Medium Armor": 94,
+        "HP Heavy Armor": 70,
+        "Damage 1 Attack": 50,
+        "Damage 2 Attacks": 22,
+        "Damage 3 Attacks": 12,
+        "Damage 4 Attacks": 7.5,
         "Save DC": 15
       },
       "13": {
         "CR Equivalent": "8",
-        "HP No Armor": 162,
-        "HP Medium Armor": 121,
-        "HP Heavy Armor": 83,
-        "Damage/Round": 38,
-        "Attack Sample Dice": "d66 or (2x) 2d8+10",
+        "HP No Armor": 136,
+        "HP Medium Armor": 104,
+        "HP Heavy Armor": 78,
+        "Damage 1 Attack": 54,
+        "Damage 2 Attacks": 24,
+        "Damage 3 Attacks": 13,
+        "Damage 4 Attacks": 8,
         "Save DC": 15
       },
       "14": {
         "CR Equivalent": "9",
-        "HP No Armor": 176,
-        "HP Medium Armor": 134,
-        "HP Heavy Armor": 94,
-        "Damage/Round": 40,
-        "Attack Sample Dice": "2d10+30 or (2x) 2d10+10",
+        "HP No Armor": 149,
+        "HP Medium Armor": 114,
+        "HP Heavy Armor": 87,
+        "Damage 1 Attack": 58,
+        "Damage 2 Attacks": 26,
+        "Damage 3 Attacks": 14,
+        "Damage 4 Attacks": 8.5,
         "Save DC": 15
       },
       "15": {
         "CR Equivalent": "9",
-        "HP No Armor": 190,
-        "HP Medium Armor": 148,
-        "HP Heavy Armor": 106,
-        "Damage/Round": 42,
-        "Attack Sample Dice": "(2x) 1d20+10 or (3x) 1d6+10",
+        "HP No Armor": 162,
+        "HP Medium Armor": 125,
+        "HP Heavy Armor": 97,
+        "Damage 1 Attack": 61,
+        "Damage 2 Attacks": 27,
+        "Damage 3 Attacks": 15,
+        "Damage 4 Attacks": 9,
         "Save DC": 15
       },
       "16": {
         "CR Equivalent": "10",
-        "HP No Armor": 204,
-        "HP Medium Armor": 161,
-        "HP Heavy Armor": 118,
-        "Damage/Round": 44,
-        "Attack Sample Dice": "(2x) 2d12+10 or (3x) 1d20+4",
+        "HP No Armor": 175,
+        "HP Medium Armor": 136,
+        "HP Heavy Armor": 107,
+        "Damage 1 Attack": 65,
+        "Damage 2 Attacks": 29,
+        "Damage 3 Attacks": 16,
+        "Damage 4 Attacks": 9.5,
         "Save DC": 16
       },
       "17": {
         "CR Equivalent": "11",
-        "HP No Armor": 219,
-        "HP Medium Armor": 174,
-        "HP Heavy Armor": 131,
-        "Damage/Round": 47,
-        "Attack Sample Dice": "d44+20 or (2x) d66+10",
+        "HP No Armor": 189,
+        "HP Medium Armor": 148,
+        "HP Heavy Armor": 118,
+        "Damage 1 Attack": 68,
+        "Damage 2 Attacks": 30,
+        "Damage 3 Attacks": 17,
+        "Damage 4 Attacks": 10,
         "Save DC": 16
       },
       "18": {
         "CR Equivalent": "12",
-        "HP No Armor": 234,
-        "HP Medium Armor": 188,
-        "HP Heavy Armor": 145,
-        "Damage/Round": 50,
-        "Attack Sample Dice": "d88 or (2x) 1d8+20",
+        "HP No Armor": 203,
+        "HP Medium Armor": 160,
+        "HP Heavy Armor": 129,
+        "Damage 1 Attack": 72,
+        "Damage 2 Attacks": 32,
+        "Damage 3 Attacks": 18,
+        "Damage 4 Attacks": 10.5,
         "Save DC": 16
       },
       "19": {
         "CR Equivalent": "13",
-        "HP No Armor": 249,
-        "HP Medium Armor": 202,
-        "HP Heavy Armor": 159,
-        "Damage/Round": 52,
-        "Attack Sample Dice": "(2x) 1d10+20 or (5x) 1d20",
+        "HP No Armor": 218,
+        "HP Medium Armor": 173,
+        "HP Heavy Armor": 141,
+        "Damage 1 Attack": 75,
+        "Damage 2 Attacks": 33,
+        "Damage 3 Attacks": 19,
+        "Damage 4 Attacks": 11,
         "Save DC": 17
       },
       "20": {
         "CR Equivalent": "14",
-        "HP No Armor": 269,
-        "HP Medium Armor": 220,
-        "HP Heavy Armor": 177,
-        "Damage/Round": 55,
-        "Attack Sample Dice": "(2x) 1d12+20 or (2x) d44",
+        "HP No Armor": 234,
+        "HP Medium Armor": 187,
+        "HP Heavy Armor": 155,
+        "Damage 1 Attack": 80,
+        "Damage 2 Attacks": 35,
+        "Damage 3 Attacks": 20,
+        "Damage 4 Attacks": 11.5,
         "Save DC": 17
       }
     };
-
     const levelSelect = document.getElementById('levelSelect');
-
     // Show stats
     function showStats() {
       const level = levelSelect.value;
@@ -296,9 +329,7 @@
       }
       document.getElementById('statBlock').innerHTML = output;
     }
-
     levelSelect.addEventListener('change', showStats);
-
     // Show initial stats
     showStats();
   </script>
