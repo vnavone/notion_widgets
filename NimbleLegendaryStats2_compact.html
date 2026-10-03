@@ -8,41 +8,22 @@
     fieldset {
       text-align: left;
     }
-
     legend {
       text-align: center;
     }
-
     #levelTitle {
       font-size: 1.2em;
     }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: left;
-    }
-
-    th:nth-child(1), td:nth-child(1),
-    th:nth-child(2), td:nth-child(2) {
-      display: none;
-    }
-
-    th:nth-child(3), th:nth-child(4) {
-      background-color: #f2f2f2;
-    }
-
     select, input {
       margin: 10px;
     }
-
     #statBlock {
       margin-top: 15px;
+    }
+    .note {
+      margin-top: 15px;
+      font-size: 0.85em;
+      opacity: 0.75;
     }
   </style>
   <link rel="stylesheet" type="text/css" href="https://vnavone.github.io/notion_widgets/style.css">
@@ -81,188 +62,49 @@
   </div>
 
   <script>
-    const data = {
-      "1": {
-        "HP/hero Unarmored": 22,
-        "HP/hero Medium Armor": "-",
-        "HP/hero Heavy Armor": "-",
-        "HP Last Stand U/M/H": "10 / - / -",
-        "Save DC": 10,
-        "Attack Damage Small": 6,
-        "Attack Damage Big": 10
-      },
-      "2": {
-        "HP/hero Unarmored": 28,
-        "HP/hero Medium Armor": 20,
-        "HP/hero Heavy Armor": "-",
-        "HP Last Stand U/M/H": "20 / 14 / -",
-        "Save DC": 11,
-        "Attack Damage Small": 7,
-        "Attack Damage Big": 13
-      },
-      "3": {
-        "HP/hero Unarmored": 40,
-        "HP/hero Medium Armor": 28,
-        "HP/hero Heavy Armor": 18,
-        "HP Last Stand U/M/H": "30 / 21 / 14",
-        "Save DC": 11,
-        "Attack Damage Small": 8,
-        "Attack Damage Big": 15
-      },
-      "4": {
-        "HP/hero Unarmored": 44,
-        "HP/hero Medium Armor": 31,
-        "HP/hero Heavy Armor": 20,
-        "HP Last Stand U/M/H": "40 / 28 / 18",
-        "Save DC": 12,
-        "Attack Damage Small": 10,
-        "Attack Damage Big": 17
-      },
-      "5": {
-        "HP/hero Unarmored": 48,
-        "HP/hero Medium Armor": 34,
-        "HP/hero Heavy Armor": 22,
-        "HP Last Stand U/M/H": "50 / 35 / 23",
-        "Save DC": 12,
-        "Attack Damage Small": 11,
-        "Attack Damage Big": 20
-      },
-      "6": {
-        "HP/hero Unarmored": 56,
-        "HP/hero Medium Armor": 39,
-        "HP/hero Heavy Armor": 25,
-        "HP Last Stand U/M/H": "60 / 42 / 27",
-        "Save DC": 13,
-        "Attack Damage Small": 13,
-        "Attack Damage Big": 23
-      },
-      "7": {
-        "HP/hero Unarmored": 64,
-        "HP/hero Medium Armor": 44,
-        "HP/hero Heavy Armor": 29,
-        "HP Last Stand U/M/H": "70 / 49 / 32",
-        "Save DC": 13,
-        "Attack Damage Small": 14,
-        "Attack Damage Big": 25
-      },
-      "8": {
-        "HP/hero Unarmored": 71,
-        "HP/hero Medium Armor": 50,
-        "HP/hero Heavy Armor": 32,
-        "HP Last Stand U/M/H": "80 / 56 / 36",
-        "Save DC": 14,
-        "Attack Damage Small": 16,
-        "Attack Damage Big": 28
-      },
-      "9": {
-        "HP/hero Unarmored": 79,
-        "HP/hero Medium Armor": 55,
-        "HP/hero Heavy Armor": 35,
-        "HP Last Stand U/M/H": "90 / 63 / 41",
-        "Save DC": 14,
-        "Attack Damage Small": 17,
-        "Attack Damage Big": 30
-      },
-      "10": {
-        "HP/hero Unarmored": 86,
-        "HP/hero Medium Armor": 60,
-        "HP/hero Heavy Armor": 39,
-        "HP Last Stand U/M/H": "100 / 70 / 45",
-        "Save DC": 15,
-        "Attack Damage Small": 19,
-        "Attack Damage Big": 33
-      },
-      "11": {
-        "HP/hero Unarmored": 94,
-        "HP/hero Medium Armor": 67,
-        "HP/hero Heavy Armor": 44,
-        "HP Last Stand U/M/H": "110 / 79 / 52",
-        "Save DC": 15,
-        "Attack Damage Small": 20,
-        "Attack Damage Big": 35
-      },
-      "12": {
-        "HP/hero Unarmored": 102,
-        "HP/hero Medium Armor": 74,
-        "HP/hero Heavy Armor": 50,
-        "HP Last Stand U/M/H": "120 / 88 / 59",
-        "Save DC": 16,
-        "Attack Damage Small": 22,
-        "Attack Damage Big": 38
-      },
-      "13": {
-        "HP/hero Unarmored": 109,
-        "HP/hero Medium Armor": 82,
-        "HP/hero Heavy Armor": 56,
-        "HP Last Stand U/M/H": "130 / 97 / 67",
-        "Save DC": 16,
-        "Attack Damage Small": 23,
-        "Attack Damage Big": 40
-      },
-      "14": {
-        "HP/hero Unarmored": 117,
-        "HP/hero Medium Armor": 89,
-        "HP/hero Heavy Armor": 63,
-        "HP Last Stand U/M/H": "140 / 107 / 75",
-        "Save DC": 17,
-        "Attack Damage Small": 24,
-        "Attack Damage Big": 43
-      },
-      "15": {
-        "HP/hero Unarmored": 125,
-        "HP/hero Medium Armor": 97,
-        "HP/hero Heavy Armor": 70,
-        "HP Last Stand U/M/H": "150 / 117 / 84",
-        "Save DC": 17,
-        "Attack Damage Small": 26,
-        "Attack Damage Big": 46
-      },
-      "16": {
-        "HP/hero Unarmored": 132,
-        "HP/hero Medium Armor": 104,
-        "HP/hero Heavy Armor": 77,
-        "HP Last Stand U/M/H": "160 / 126 / 93",
-        "Save DC": 18,
-        "Attack Damage Small": 28,
-        "Attack Damage Big": 49
-      },
-      "17": {
-        "HP/hero Unarmored": 140,
-        "HP/hero Medium Armor": 111,
-        "HP/hero Heavy Armor": 84,
-        "HP Last Stand U/M/H": "170 / 135 / 102",
-        "Save DC": 18,
-        "Attack Damage Small": 30,
-        "Attack Damage Big": 53
-      },
-      "18": {
-        "HP/hero Unarmored": 147,
-        "HP/hero Medium Armor": 118,
-        "HP/hero Heavy Armor": 91,
-        "HP Last Stand U/M/H": "180 / 145 / 112",
-        "Save DC": 19,
-        "Attack Damage Small": 32,
-        "Attack Damage Big": 56
-      },
-      "19": {
-        "HP/hero Unarmored": 155,
-        "HP/hero Medium Armor": 126,
-        "HP/hero Heavy Armor": 99,
-        "HP Last Stand U/M/H": "190 / 154 / 122",
-        "Save DC": 19,
-        "Attack Damage Small": 34,
-        "Attack Damage Big": 59
-      },
-      "20": {
-        "HP/hero Unarmored": 166,
-        "HP/hero Medium Armor": 136,
-        "HP/hero Heavy Armor": 110,
-        "HP Last Stand U/M/H": "200 / 164 / 132",
-        "Save DC": 20,
-        "Attack Damage Small": 37,
-        "Attack Damage Big": 64
-      }
-    };
+    // Field order here controls display order.
+    const fields = [
+      "Unarmored",
+      "Med Armor",
+      "Heavy Armor",
+      "Save DC",
+      "Small Attack Dmg",
+      "Big Attack Dmg"
+    ];
+
+    // Each row: [level, ...values in the same order as `fields`]
+    const rows = [
+      ["1", "22 (3)", "—", "—", 10, 5, 8],
+      ["2", "28 (7)", "—", "—", 11, 6, 10],
+      ["3", "40 (10)", "—", "—", 11, 8, 14],
+      ["4", "44 (13)", "28 (7)*", "—", 12, 10, 15],
+      ["5", "48 (17)", "40 (11)*", "—", 12, 11, 18],
+      ["6", "56 (20)", "50 (14)", "—", 13, 13, 21],
+      ["7", "64 (23)", "58 (17)", "42 (10)*", 13, 14, 22],
+      ["8", "71 (27)", "64 (19)", "50 (14)*", 14, 16, 25],
+      ["9", "79 (30)", "71 (22)", "58 (17)*", 14, 17, 27],
+      ["10", "86 (33)", "77 (24)", "64 (20)", 15, 19, 30],
+      ["11", "94 (37)", "85 (27)", "70 (22)", 15, 20, 32],
+      ["12", "102 (40)", "92 (29)", "76 (24)", 16, 22, 34],
+      ["13", "109 (43)", "98 (31)", "82 (26)", 16, 23, 36],
+      ["14", "117 (47)", "105 (34)", "88 (28)", 17, 24, 39],
+      ["15", "125 (50)", "112 (36)", "94 (30)", 17, 26, 41],
+      ["16", "132 (53)", "119 (38)", "99 (32)", 18, 28, 44],
+      ["17", "140 (57)", "126 (41)", "105 (34)", 18, 30, 48],
+      ["18", "147 (60)", "133 (43)", "110 (36)", 19, 32, 50],
+      ["19", "155 (63)", "141 (46)", "116 (38)", 19, 34, 53],
+      ["20", "166 (67)", "151 (49)", "124 (40)", 20, 37, 58]
+    ];
+
+    // Build the lookup object from the rows
+    const data = {};
+    rows.forEach(row => {
+      const level = row[0];
+      data[level] = {};
+      fields.forEach((field, i) => {
+        data[level][field] = row[i + 1];
+      });
+    });
 
     const levelSelect = document.getElementById('levelSelect');
 
@@ -271,9 +113,18 @@
       const level = levelSelect.value;
       const stats = data[level];
       let output = `<div id='levelTitle'><strong>Party Level ${level}</strong></div><br>`;
-      for (const key in stats) {
-        output += `<strong>${key}:</strong> ${stats[key]}<br>`;
+      // Save DC is shown after the attack lines
+      const order = Object.keys(stats).filter(k => k !== "Save DC").concat("Save DC");
+      for (const key of order) {
+        let value = stats[key];
+        // HP values like "71 (27)" or "50 (14)*" -> "71 HP/Hero (Last Stand: 27)" with the Last Stand part italic
+        value = String(value).replace(
+          /^(\d+) \((\d+)\)(\*?)$/,
+          "$1 HP/Hero (<em>Last Stand: $2</em>)$3"
+        );
+        output += `<strong>${key}:</strong> ${value}<br>`;
       }
+      output += `<div class='note'>*Not recommended to introduce Medium Armor before level 3, or Heavy Armor before level 8.</div>`;
       document.getElementById('statBlock').innerHTML = output;
     }
 
