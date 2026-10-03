@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monster Level Stats</title>
+  <title>Nimble Monster Stats</title>
   <style>
     fieldset {
       text-align: left;
@@ -14,27 +14,16 @@
     #levelTitle {
       font-size: 1.2em;
     }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: left;
-    }
-    th:nth-child(1), td:nth-child(1),
-    th:nth-child(2), td:nth-child(2) {
-      display: none;
-    }
-    th:nth-child(3), th:nth-child(4) {
-      background-color: #f2f2f2;
-    }
     select, input {
       margin: 10px;
     }
     #statBlock {
       margin-top: 15px;
+    }
+    .note {
+      margin-top: 15px;
+      font-size: 0.85em;
+      opacity: 0.75;
     }
   </style>
   <link rel="stylesheet" type="text/css" href="https://vnavone.github.io/notion_widgets/style.css">
@@ -74,262 +63,88 @@
     </fieldset>
   </div>
   <script>
-    const data = {
-      "1/3": {
-        "CR Equivalent": "1/8",
-        "HP No Armor": 8,
-        "HP Medium Armor": "-",
-        "HP Heavy Armor": "-",
-        "Damage 1 Attack": "3.5 (can't crit)",
-        "Damage 2 Attacks": "-",
-        "Damage 3 Attacks": "-",
-        "Damage 4 Attacks": "-",
-        "Save DC": 10
-      },
-      "1/2": {
-        "CR Equivalent": "1/4",
-        "HP No Armor": 12,
-        "HP Medium Armor": "-",
-        "HP Heavy Armor": "-",
-        "Damage 1 Attack": "5 (crit:+1)",
-        "Damage 2 Attacks": "-",
-        "Damage 3 Attacks": "-",
-        "Damage 4 Attacks": "-",
-        "Save DC": 11
-      },
-      "1": {
-        "CR Equivalent": "1/2",
-        "HP No Armor": 17,
-        "HP Medium Armor": "-",
-        "HP Heavy Armor": "-",
-        "Damage 1 Attack": 8,
-        "Damage 2 Attacks": "-",
-        "Damage 3 Attacks": "-",
-        "Damage 4 Attacks": "-",
-        "Save DC": 11
-      },
-      "2": {
-        "CR Equivalent": "1",
-        "HP No Armor": 25,
-        "HP Medium Armor": 18,
-        "HP Heavy Armor": "-",
-        "Damage 1 Attack": 12,
-        "Damage 2 Attacks": 5.5,
-        "Damage 3 Attacks": "-",
-        "Damage 4 Attacks": "-",
-        "Save DC": 11
-      },
-      "3": {
-        "CR Equivalent": "1",
-        "HP No Armor": 33,
-        "HP Medium Armor": 23,
-        "HP Heavy Armor": 15,
-        "Damage 1 Attack": 16,
-        "Damage 2 Attacks": 7,
-        "Damage 3 Attacks": "-",
-        "Damage 4 Attacks": "-",
-        "Save DC": 12
-      },
-      "4": {
-        "CR Equivalent": "2",
-        "HP No Armor": 42,
-        "HP Medium Armor": 30,
-        "HP Heavy Armor": 19,
-        "Damage 1 Attack": 20,
-        "Damage 2 Attacks": 9,
-        "Damage 3 Attacks": "-",
-        "Damage 4 Attacks": "-",
-        "Save DC": 12
-      },
-      "5": {
-        "CR Equivalent": "2",
-        "HP No Armor": 51,
-        "HP Medium Armor": 37,
-        "HP Heavy Armor": 24,
-        "Damage 1 Attack": 24,
-        "Damage 2 Attacks": 10.5,
-        "Damage 3 Attacks": 6,
-        "Damage 4 Attacks": "-",
-        "Save DC": 13
-      },
-      "6": {
-        "CR Equivalent": "3",
-        "HP No Armor": 60,
-        "HP Medium Armor": 43,
-        "HP Heavy Armor": 29,
-        "Damage 1 Attack": 28,
-        "Damage 2 Attacks": 12.5,
-        "Damage 3 Attacks": 7,
-        "Damage 4 Attacks": "-",
-        "Save DC": 13
-      },
-      "7": {
-        "CR Equivalent": "3",
-        "HP No Armor": 70,
-        "HP Medium Armor": 51,
-        "HP Heavy Armor": 35,
-        "Damage 1 Attack": 32,
-        "Damage 2 Attacks": 14,
-        "Damage 3 Attacks": 8,
-        "Damage 4 Attacks": "-",
-        "Save DC": 13
-      },
-      "8": {
-        "CR Equivalent": "4",
-        "HP No Armor": 80,
-        "HP Medium Armor": 59,
-        "HP Heavy Armor": 41,
-        "Damage 1 Attack": 35,
-        "Damage 2 Attacks": 15.5,
-        "Damage 3 Attacks": 9,
-        "Damage 4 Attacks": "-",
-        "Save DC": 13
-      },
-      "9": {
-        "CR Equivalent": "4",
-        "HP No Armor": 90,
-        "HP Medium Armor": 66,
-        "HP Heavy Armor": 47,
-        "Damage 1 Attack": 39,
-        "Damage 2 Attacks": 17,
-        "Damage 3 Attacks": 10,
-        "Damage 4 Attacks": "-",
-        "Save DC": 14
-      },
-      "10": {
-        "CR Equivalent": "5",
-        "HP No Armor": 101,
-        "HP Medium Armor": 75,
-        "HP Heavy Armor": 54,
-        "Damage 1 Attack": 43,
-        "Damage 2 Attacks": 19,
-        "Damage 3 Attacks": 11,
-        "Damage 4 Attacks": 6.5,
-        "Save DC": 14
-      },
-      "11": {
-        "CR Equivalent": "6",
-        "HP No Armor": 112,
-        "HP Medium Armor": 84,
-        "HP Heavy Armor": 61,
-        "Damage 1 Attack": 47,
-        "Damage 2 Attacks": 20.5,
-        "Damage 3 Attacks": 12,
-        "Damage 4 Attacks": 7,
-        "Save DC": 14
-      },
-      "12": {
-        "CR Equivalent": "7",
-        "HP No Armor": 124,
-        "HP Medium Armor": 94,
-        "HP Heavy Armor": 70,
-        "Damage 1 Attack": 50,
-        "Damage 2 Attacks": 22,
-        "Damage 3 Attacks": 12,
-        "Damage 4 Attacks": 7.5,
-        "Save DC": 15
-      },
-      "13": {
-        "CR Equivalent": "8",
-        "HP No Armor": 136,
-        "HP Medium Armor": 104,
-        "HP Heavy Armor": 78,
-        "Damage 1 Attack": 54,
-        "Damage 2 Attacks": 24,
-        "Damage 3 Attacks": 13,
-        "Damage 4 Attacks": 8,
-        "Save DC": 15
-      },
-      "14": {
-        "CR Equivalent": "9",
-        "HP No Armor": 149,
-        "HP Medium Armor": 114,
-        "HP Heavy Armor": 87,
-        "Damage 1 Attack": 58,
-        "Damage 2 Attacks": 26,
-        "Damage 3 Attacks": 14,
-        "Damage 4 Attacks": 8.5,
-        "Save DC": 15
-      },
-      "15": {
-        "CR Equivalent": "9",
-        "HP No Armor": 162,
-        "HP Medium Armor": 125,
-        "HP Heavy Armor": 97,
-        "Damage 1 Attack": 61,
-        "Damage 2 Attacks": 27,
-        "Damage 3 Attacks": 15,
-        "Damage 4 Attacks": 9,
-        "Save DC": 15
-      },
-      "16": {
-        "CR Equivalent": "10",
-        "HP No Armor": 175,
-        "HP Medium Armor": 136,
-        "HP Heavy Armor": 107,
-        "Damage 1 Attack": 65,
-        "Damage 2 Attacks": 29,
-        "Damage 3 Attacks": 16,
-        "Damage 4 Attacks": 9.5,
-        "Save DC": 16
-      },
-      "17": {
-        "CR Equivalent": "11",
-        "HP No Armor": 189,
-        "HP Medium Armor": 148,
-        "HP Heavy Armor": 118,
-        "Damage 1 Attack": 68,
-        "Damage 2 Attacks": 30,
-        "Damage 3 Attacks": 17,
-        "Damage 4 Attacks": 10,
-        "Save DC": 16
-      },
-      "18": {
-        "CR Equivalent": "12",
-        "HP No Armor": 203,
-        "HP Medium Armor": 160,
-        "HP Heavy Armor": 129,
-        "Damage 1 Attack": 72,
-        "Damage 2 Attacks": 32,
-        "Damage 3 Attacks": 18,
-        "Damage 4 Attacks": 10.5,
-        "Save DC": 16
-      },
-      "19": {
-        "CR Equivalent": "13",
-        "HP No Armor": 218,
-        "HP Medium Armor": 173,
-        "HP Heavy Armor": 141,
-        "Damage 1 Attack": 75,
-        "Damage 2 Attacks": 33,
-        "Damage 3 Attacks": 19,
-        "Damage 4 Attacks": 11,
-        "Save DC": 17
-      },
-      "20": {
-        "CR Equivalent": "14",
-        "HP No Armor": 234,
-        "HP Medium Armor": 187,
-        "HP Heavy Armor": 155,
-        "Damage 1 Attack": 80,
-        "Damage 2 Attacks": 35,
-        "Damage 3 Attacks": 20,
-        "Damage 4 Attacks": 11.5,
-        "Save DC": 17
-      }
-    };
+    // Field order here controls display order.
+    const fields = [
+      "HP No Armor",
+      "HP Medium Armor",
+      "HP Heavy Armor",
+      "Damage 1 Attack",
+      "Damage 2 Attacks",
+      "Damage 3 Attacks",
+      "Sample Dice 1 Attack",
+      "Sample Dice 2 Attacks",
+      "Sample Dice 3 Attacks",
+      "Save DC",
+      "CR Equivalent"
+    ];
+
+    // Each row: [level, ...values in the same order as `fields`]
+    const rows = [
+      ["1/3", 10, "-", "-", "2.5 (can't crit)", "-", "-", "1d4 (can't crit)", "-", "-", 10, "1/8"],
+      ["1/2", 15, "-", "-", "4.5 (can't crit)", "-", "-", "1d6+1 or 1d8 (can't crit)", "-", "-", 11, "1/4"],
+      ["1", 21, "12*", "-", 7, "-", "-", "2d6 or 1d12", "-", "-", 11, "1/2"],
+      ["2", 31, "19*", "-", 10, 4, "-", "3d6 or 1d6+6", "1d6", "-", 11, "1"],
+      ["3", 41, 27, "-", 14, 6, "-", "1d8+10", "1d10", "-", 12, "1"],
+      ["4", 52, 37, "24*", 17, 8, "-", "2d6+10", "1d6+5", "-", 12, "2"],
+      ["5", 64, 49, "30*", 20, 9, 5, "1d10+15", "1d6+6", "1d8", 13, "2"],
+      ["6", 75, 60, "37*", 24, 10, 6, "1d8+20", "3d6", "1d10", 13, "3"],
+      ["7", 87, 72, "44*", 27, 12, 7, "1d12+20 or d44", "1d8+8", "1d12", 13, "3"],
+      ["8", 100, 84, 60, 30, 13, 7.5, "2d8+20", "1d6+10", "2d6", 13, "4"],
+      ["9", 112, 95, 73, 33, 14, 8, "1d6+30", "1d8+10", "1d6+5", 14, "4"],
+      ["10", 126, 107, 88, 37, 16, 9, "2d6+30 or d44+10", "1d12+10", "2d8", 14, "5"],
+      ["11", 140, 121, 97, 40, 17, 10, "2d8+30 or d66", "1d12+10", "1d10+5", 14, "6"],
+      ["12", 155, 135, 105, 43, 19, 11, "2d12+30", "1d8+15", "1d20", 15, "7"],
+      ["13", 170, 150, 112, 46, 20, 12, "1d20+35 or d66+10", "1d10+15", "1d8+8", 15, "8"],
+      ["14", 186, 165, 119, 49, 22, 13, "1d20+40 or d88", "2d8+10", "1d6+10", 15, "9"],
+      ["15", 202, 180, 125, 52, 23, 13.5, "2d10+40", "1d6+20", "1d6+10", 15, "9"],
+      ["16", 219, 196, 139, 55, 25, 14, "1d10+50", "1d8+20", "1d8+10", 16, "10"],
+      ["17", 236, 212, 152, 58, 26, 15, "2d8+50", "1d12+20", "1d10+10", 16, "11"],
+      ["18", 254, 230, 167, 61, 27, 16, "2d10+50 or d88+10", "1d12+20", "1d10+10", 16, "12"],
+      ["19", 272, 247, 182, 64, 28, 17, "1d8+60", "1d6+25", "1d12+10", 17, "13"],
+      ["20", 292, 266, 199, 68, 30, 18, "2d10+60", "1d20+20", "1d12+12", 18, "14"]
+    ];
+
+    // Build the lookup object from the rows
+    const data = {};
+    rows.forEach(row => {
+      const level = row[0];
+      data[level] = {};
+      fields.forEach((field, i) => {
+        data[level][field] = row[i + 1];
+      });
+    });
+
     const levelSelect = document.getElementById('levelSelect');
+
     // Show stats
     function showStats() {
       const level = levelSelect.value;
       const stats = data[level];
       let output = `<div id='levelTitle'><strong>Monster Level ${level}</strong></div><br>`;
+      const crit = " (can't crit)";
       for (const key in stats) {
-        output += `<strong>${key}:</strong> ${stats[key]}<br>`;
+        // Sample Dice are merged into the Damage lines below
+        if (key.startsWith("Sample Dice")) continue;
+        let value = stats[key];
+        if (key.startsWith("Damage") && value !== "-") {
+          let dmg = String(value);
+          let dice = String(stats[key.replace("Damage", "Sample Dice")]);
+          if (dmg.endsWith(crit)) {
+            dmg = dmg.slice(0, -crit.length);
+            dice = dice.endsWith(crit) ? dice.slice(0, -crit.length) : dice;
+            value = `${dmg} (${dice}, can't crit)`;
+          } else {
+            value = `${dmg} (${dice})`;
+          }
+        }
+        output += `<strong>${key}:</strong> ${value}<br>`;
       }
+      output += `<div class='note'>*Not recommended to introduce Medium Armor before level 3, or Heavy Armor before level 8.</div>`;
       document.getElementById('statBlock').innerHTML = output;
     }
+
     levelSelect.addEventListener('change', showStats);
+
     // Show initial stats
     showStats();
   </script>
