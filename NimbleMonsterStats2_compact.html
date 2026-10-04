@@ -65,9 +65,9 @@
   <script>
     // Field order here controls display order.
     const fields = [
-      "HP No Armor",
-      "HP Medium Armor",
-      "HP Heavy Armor",
+      "Unarmored",
+      "Medium Armor",
+      "Heavy Armor",
       "Damage 1 Attack",
       "Damage 2 Attacks",
       "Damage 3 Attacks",
@@ -137,7 +137,16 @@
             value = `${dmg} (${dice})`;
           }
         }
-        output += `<strong>${key}:</strong> ${value}<br>`;
+        let label = key;
+        if (["Unarmored", "Medium Armor", "Heavy Armor"].includes(key)) {
+          // "52" -> "52 HP", "24*" -> "24 HP*"; "-" stays as is
+          value = String(value).replace(/^(\d+(?:\.\d+)?)(\*?)$/, "$1 HP$2");
+        }
+        if (key.startsWith("Damage")) {
+          // "Damage 1 Attack" -> "Damage (1 Attack)"
+          label = key.replace(/^Damage (.*)$/, "Damage ($1)");
+        }
+        output += `<strong>${label}:</strong> ${value}<br>`;
       }
       output += `<div class='note'>*Not recommended to introduce Medium Armor before level 3, or Heavy Armor before level 8.</div>`;
       document.getElementById('statBlock').innerHTML = output;
